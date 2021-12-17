@@ -8,6 +8,8 @@
 1.6 - re added live preview of weight conversion
 END -->
 
+<!-- Added Git control via GITHUB -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +38,8 @@ END -->
                 <li> Enter your weight
                     <input id="inputPounds" type="number" placeholder="Pounds" maxlength="4" size="6"
                         oninput="poundweightConvert(this.value)" onchange="poundweightConvert(this.value)">
-                    lbs <span id="stones">0</span> st <span id="stPounds">0</span> lbs</li>
+                    lbs <span id="stones">0</span> st <span id="stPounds">0</span> lbs
+                </li>
             </ul>
             <div class="buttons">
                 <input type="button" value="Delete selected date" onClick="deleteLastEntry()" id="deleteLast">
