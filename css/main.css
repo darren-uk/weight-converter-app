@@ -1,5 +1,5 @@
 :root {
-  font-family: 'open sans', Helvetica, Arial, sans-serif;
+  font-family: "open sans", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
 }
@@ -31,7 +31,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #1f3a3a;
+  background-color: rgb(31, 58, 58);
 }
 
 img {
@@ -41,32 +41,28 @@ img {
 .app-container {
   width: 500px;
   min-height: 500px;
-  background-color: #304949;
+  background-color: rgb(48, 73, 73);
   border-radius: 1em;
   padding: 1.2em 2.8em;
 }
-
 .app-container h1 {
-  color: #c0c9d1;
+  color: rgb(192, 201, 209);
   line-height: 1;
   display: inline-block;
 }
-
 .app-container .version {
   font-size: 0.8em;
   line-height: 0.1;
-  color: #50b686;
+  color: rgb(80, 182, 134);
   display: inline-block;
   padding-left: 10px;
 }
-
 .app-container p {
   color: white;
   font-size: 0.9em;
   line-height: 1;
   margin-bottom: 60px;
 }
-
 .app-container p img {
   float: left;
   margin-right: 20px;
@@ -76,114 +72,111 @@ ul.questions {
   color: #fff;
   padding: 0;
 }
-
 ul.questions li {
   list-style: none;
   margin-bottom: 20px;
 }
-
 ul.questions li #date {
   display: inline-block;
   margin-left: 60px;
   color: white;
   font-weight: 600;
 }
-
 ul.questions li input {
   margin-left: 20px;
   margin-bottom: 20px;
 }
-
 ul.questions li span#stones {
   padding-left: 40px;
 }
-
 ul.questions li input#date,
 ul.questions li input#pounds {
-  background-color: #304949;
+  background-color: rgb(48, 73, 73);
   border: none;
-  color: #50b686;
+  color: rgb(80, 182, 134);
   border-bottom: 1px solid #fff;
-  font-family: 'open sans', Helvetica, Arial, sans-serif;
+  font-family: "open sans", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
 }
-
 ul.questions li input::-webkit-outer-spin-button,
 ul.questions li input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 ul.questions li input[type=number] {
   -moz-appearance: textfield;
 }
-
 ul.questions li p {
-  color: #50b686;
+  color: rgb(80, 182, 134);
 }
-
 ul.questions li p span {
   color: #fff;
 }
 
 .buttons input[type=button] {
-  background-color: #304949;
-  border: 1px solid #3f5e5e;
+  background-color: rgb(48, 73, 73);
+  border: 1px solid rgb(63, 94, 94);
   border-radius: 6px;
   padding: 0.4em;
   color: #fff;
-  font-family: 'open sans', Helvetica, Arial, sans-serif;
+  font-family: "open sans", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
 }
-
 .buttons input[type=button]:hover {
   background-color: #fff;
-  color: #304949;
+  color: rgb(48, 73, 73);
   cursor: pointer;
 }
-
 .buttons input#deleteLast {
-  background-color: #b36262;
+  background-color: rgb(179, 98, 98);
   font-size: 12px;
 }
-
 .buttons input#deleteLast:hover {
   background-color: #fff;
-  color: #304949;
+  color: rgb(48, 73, 73);
   cursor: pointer;
 }
-
 .buttons input#calculate {
-  background-color: #50b686;
+  background-color: rgb(80, 182, 134);
   margin-left: 60px;
 }
-
 .buttons input#calculate:hover {
   background-color: #fff;
-  color: #304949;
+  color: rgb(48, 73, 73);
   cursor: pointer;
 }
 
 ul#result01 li {
   list-style: none;
   padding: 0;
-  color: #50b686;
-  font-family: 'open sans', Helvetica, Arial, sans-serif;
+  color: rgb(80, 182, 134);
+  font-family: "open sans", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
 }
-
 ul#result01 li span {
-  color: #ddd3d3;
+  color: rgb(221, 211, 211);
   padding-left: 20px;
 }
 
 #results {
   margin: 30px 0px;
-  color: #ddd3d3;
-  font-family: 'open sans', Helvetica, Arial, sans-serif;
+  color: rgb(221, 211, 211);
+  font-family: "open sans", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
+}
+#results li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 50%;
+}
+#results .weight {
+  width: 12ch;
 }
