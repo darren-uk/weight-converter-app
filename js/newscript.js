@@ -52,13 +52,32 @@ function displayResults() {
 		let month = new Date(dateList[i]).toLocaleDateString("en-GB", optionsMonth);
 		let day = new Date(dateList[i]).toLocaleDateString("en-GB", optionsDay);
 
+		const nth = function (d) {
+			if (d > 3 && d < 21) return "th";
+			switch (d % 10) {
+				case 1:
+					return "st";
+				case 2:
+					return "nd";
+				case 3:
+					return "rd";
+				default:
+					return "th";
+			}
+		};
+
+		dayString = day + nth(day);
+
+		console.log(dayString);
 		//Create Results list
 		const node = document.createElement("li");
 		const spanDate = document.createElement("span");
 		spanDate.className = "date";
 		const spanWeight = document.createElement("span");
 		spanWeight.className = "weight";
-		const dateText = document.createTextNode(`${year} ${month} ${day} `);
+
+		let dateText = document.createTextNode(`${year} ${month} ${dayString} `);
+
 		const weightText = document.createTextNode(
 			`${stones} st \xa0\xa0\ ${pounds} lbs`
 		);
