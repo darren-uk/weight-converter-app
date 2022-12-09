@@ -14,11 +14,13 @@
     <!-- <body onload="displayResults()"> -->
     <div class="app-container">
         <h1>Weight Tracker </h1>
+        <div class="version">Version 1.5.1 <span id="version-date">Dec 2022</span></div>
 
         <form>
             <ul>
-                <li>Date <input type="date" name="date" id="date-input" required></li>
-                <li>Weight <input type="number" placeholder="Pounds" maxlength="4" size="6" id="weight-input"></li>
+                <li>Enter Date <input type="date" name="date" id="date-input" required></li>
+                <li>Enter your Weight <input type="number" placeholder="Pounds" maxlength="4" size="6"
+                        id="weight-input"></li>
             </ul>
             <div class="buttons">
                 <input type="button" value="Save" onClick="weightTracker()" id="calculate">
