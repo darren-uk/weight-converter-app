@@ -21,3 +21,12 @@
 - 1.5 - Added chart display using Chart.js from https://www.chartjs.org/
 - 1.5.1 - Changed chart to display last 5 entries on chart.
         
+## Dependencies / Libraries
+
+- ChartJS URL https://www.chartjs.org/
+
+## Disclaimer
+
+- WARNING - Clearing / cleaning browser cache, cookies or storage will affect or DELETE data stored on users browser.
+- Data is stored in browser with local storage
+- If user visits app in another browser, data will not display. Data is stored on users local machine and in browser local storage. All browsers have own local storage.
