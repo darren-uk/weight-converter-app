@@ -3,6 +3,8 @@
 const dateInput = document.getElementById("date-input");
 const weightInput = document.getElementById("weight-input");
 const resultsOutput = document.getElementById("results");
+const graphDiv = document.getElementById("graph-display");
+const graphCanvas = document.getElementById("weightChart").getContext("2d");
 
 // Submit Button
 function weightTracker() {
@@ -16,7 +18,6 @@ function weightTracker() {
 }
 
 // Get data from local storage and populate results div
-
 function displayResults() {
 	//clear results list
 	resultsOutput.innerHTML = "";
@@ -36,7 +37,8 @@ function displayResults() {
 	for (let i = 0; i < dateList.length; i++) {
 		let value = localStorage.getItem(dateList[i]);
 		let stones = Math.floor(value / 14);
-		let pounds = value % 14;
+		// let pounds = value % 14;
+		let pounds = (((value * 0.071429) % 1) * 14).toFixed();
 
 		// Format Date
 		let optionsYear = {
@@ -68,7 +70,6 @@ function displayResults() {
 
 		dayString = day + nth(day);
 
-		console.log(dayString);
 		//Create Results list
 		const node = document.createElement("li");
 		const spanDate = document.createElement("span");
@@ -76,7 +77,7 @@ function displayResults() {
 		const spanWeight = document.createElement("span");
 		spanWeight.className = "weight";
 
-		let dateText = document.createTextNode(`${year} ${month} ${dayString} `);
+		let dateText = document.createTextNode(`${year}  ${month} ${dayString} `);
 
 		const weightText = document.createTextNode(
 			`${stones} st \xa0\xa0\ ${pounds} lbs`
@@ -91,24 +92,49 @@ function displayResults() {
 // 14lbs = 1 stone
 // 152lbs = 10st 12lbs
 
+//ADD EVENT LISTENER FOR PRESSING ENTER BUTTON
+weightInput.addEventListener("keydown", function (event) {
+	// Number 13 is the "Enter" key on the keyboard
+	if (event.keyCode === 13) {
+		// Cancel the default action, if needed
+		event.preventDefault();
+		// Trigger the button element with a click
+		document.getElementById("calculate").click();
+	}
+});
+
 // backup to csv
-function csvBackup() {
-	// create csv file  from local storage data
-}
+function backUpCsv() {
+	let csvContent = "data:text/csv;charset=utf-8,";
+	let rows = [];
 
-// backup to google docs
+	for (i = 0; i < localStorage.length; i++) {
+		let x = [];
+		let key = localStorage.key(i);
+		let item = localStorage.getItem(key);
+		let d = [key + "," + item];
+		x.push(d);
+		rows.push(x);
+	}
 
-function googleBackup() {
-	// create csv file  from local storage data and upload to google drive
-}
+	// Cycle through array of original data
+	rows.forEach(function (rowArray) {
+		// converts row into a string and separates each item with a ","
+		let row = rowArray.join(",");
+		// adds hidden characters at end of each row to place next row on a new line
+		csvContent += row + "\r\n";
+	});
 
-// restore from backup
-
-function backupRestore() {
-	//get data from csv and place into local storage
-	// Get array of all weights from local storage
-	// loop through array
-	// for each , convert with weightConverter function and display results
+	// creates filemane from current date
+	let currentDate = new Date();
+	let simpleDate = currentDate.toLocaleDateString();
+	let filename = "MyWeight_" + simpleDate + ".csv";
+	let encodedUri = encodeURI(csvContent);
+	let link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", filename);
+	document.body.appendChild(link);
+	link.click();
 }
 
 //Delete entry
@@ -121,4 +147,57 @@ function deleteEntry() {
 	displayResults();
 }
 
-//ADD EVENT LISTENER FOR PRESSING ENTER BUTTON
+// graphDiv
+
+//Display graph from localhost data
+function displayGraph() {
+	let myDates = [];
+	let myWeights = [];
+
+	for (let i = 0; i < localStorage.length; i++) {
+		let key = localStorage.key(i);
+		myDates.push(key);
+	}
+
+	myDates.sort();
+	// myDates.reverse();
+	for (let i = 0; i < myDates.length; i++) {
+		let localItem = localStorage.getItem(myDates[i]);
+		myWeights.push(localItem);
+	}
+
+	let myDatesLastFive = myDates.slice(-5);
+	let myWeightsLastFive = myWeights.slice(-5);
+
+	let myWeightsMax = Math.max(...myWeightsLastFive);
+	let myWeightsMin = Math.min(...myWeightsLastFive);
+
+	new Chart(graphCanvas, {
+		type: "line",
+		data: {
+			labels: myDatesLastFive, //Your labels for Y axis go in here - must be array []
+			datasets: [
+				{
+					label: "Weight lbs",
+					data: myWeightsLastFive, // your data for X axis go in here - must be array []
+					borderWidth: 1,
+				},
+			],
+		},
+		options: {
+			scales: {
+				y: {
+					min: myWeightsMin,
+					max: myWeightsMax,
+				},
+			},
+
+			plugins: {
+				title: {
+					display: true,
+					text: "Last five entries",
+				},
+			},
+		},
+	});
+}

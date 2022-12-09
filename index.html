@@ -9,8 +9,9 @@
     <title>Weight Tracker APP</title>
 </head>
 
-<body onload="displayResults()">
+<body onload="displayResults(),displayGraph()">
 
+    <!-- <body onload="displayResults()"> -->
     <div class="app-container">
         <h1>Weight Tracker </h1>
 
@@ -22,20 +23,22 @@
             <div class="buttons">
                 <input type="button" value="Save" onClick="weightTracker()" id="calculate">
                 <input type="button" value="Delete selected date" onClick="deleteEntry()" id="deleteLast">
-                <input type="button" value="Backup CSV" onclick="csvBackup()" id="backup-csv">
-                <input type="button" value="Backup Google" onclick="googleBackup()" id="backup-google">
+                <!-- <input type="button" value="Backup to file" onClick="getLocalstorageToFile('yourfile2')"
+                    id="backup-csv"> -->
+                <input type="button" value="Download for Spreadsheet" onClick="backUpCsv()" id="backup-csv">
             </div>
             <div>
+                <div class="graph-display" id="graph-display">
+                    <canvas id="weightChart"></canvas>
+                </div>
                 <ul class="results" id="results">
-
                 </ul>
+
             </div>
         </form>
 
     </div>
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/newscript.js"></script>
 
 </body>
