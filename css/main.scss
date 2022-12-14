@@ -109,6 +109,9 @@ ul#buttons {
 		justify-content: end;
 		padding: 0.5em 0;
 	}
+	li:nth-of-type(1) {
+		margin-bottom: 3em;
+	}
 	label {
 		margin-right: 2em;
 	}
@@ -159,7 +162,7 @@ ul#results {
 		justify-content: space-around;
 		list-style: none;
 		width: 100%;
-		padding: 1em 0;
+		padding: 1em;
 		span.date {
 			text-align: left;
 			width: 15ch;

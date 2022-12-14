@@ -3,9 +3,14 @@
 > For when your weight scales only show pounds (lbs) and you want it converted to Stones (st lbs)
 
 > Keep track of your weight by storing in local storge of web browser
+
 > Display entries of your weight
+
 > Display Chart / Graph of entries
+
 > Set you target weight
+
+> Download your data for Excel spreadsheet (.csv)
 
 ## Changelog
 
