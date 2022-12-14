@@ -11,35 +11,45 @@
 
 <body onload="displayResults(),displayGraph()">
 
-    <!-- <body onload="displayResults()"> -->
-    <div class="app-container">
-        <h1>Weight Tracker </h1>
-        <div class="version">Version 1.5.1 <span id="version-date">Dec 2022</span></div>
 
-        <form>
-            <ul>
-                <li>Enter Date <input type="date" name="date" id="date-input" required></li>
-                <li>Enter your Weight <input type="number" placeholder="Pounds" maxlength="4" size="6"
-                        id="weight-input"></li>
-            </ul>
-            <div class="buttons">
-                <input type="button" value="Save" onClick="weightTracker()" id="calculate">
-                <input type="button" value="Delete selected date" onClick="deleteEntry()" id="deleteLast">
-                <!-- <input type="button" value="Backup to file" onClick="getLocalstorageToFile('yourfile2')"
-                    id="backup-csv"> -->
-                <input type="button" value="Download for Spreadsheet" onClick="backUpCsv()" id="backup-csv">
-            </div>
-            <div>
-                <div class="graph-display" id="graph-display">
-                    <canvas id="weightChart"></canvas>
-                </div>
-                <ul class="results" id="results">
+    <div class="app-container">
+        <section>
+            <h1>Weight Tracker </h1>
+            <div class="version">Version 1.5.1 <span id="version-date">Dec 2022</span></div>
+        </section>
+        <section>
+            <form id="details">
+                <ul id="inputs">
+                    <li><label for="date-input">Enter Date </label><input type="date" name="date" id="date-input"
+                            tabindex=0 required></li>
+                    <li><label for="weight-input">Enter Weight ( lbs )</label><input type="number" placeholder="Pounds"
+                            maxlength="4" size="6" id="weight-input"></li>
                 </ul>
 
-            </div>
-        </form>
+                <ul id="buttons">
+                    <li><input type="button" value="Save" onClick="weightTracker()" id="calculate"></li>
+                    <li><label for="deleteLast">Selected date - </label><input type="button" value="Delete"
+                            onClick="deleteEntry()" id="deleteLast"></li>
+                    <li><label>Spreadsheet - </label><input type="button" value="Download" onClick="backUpCsv()"
+                            id="backup-csv"></li>
+                </ul>
 
-    </div>
+            </form>
+        </section>
+        <section>
+            <h2>Last 5 entries</h2>
+            <div class="graph-display" id="graph-display">
+                <canvas id="weightChart"></canvas>
+            </div>
+        </section>
+        <section>
+            <h2>Records</h2>
+            <ul class="results" id="results">
+            </ul>
+
+        </section>
+    </div> <!-- App container -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/newscript.js"></script>
 

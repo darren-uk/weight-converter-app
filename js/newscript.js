@@ -4,7 +4,6 @@ const dateInput = document.getElementById("date-input");
 const weightInput = document.getElementById("weight-input");
 const resultsOutput = document.getElementById("results");
 const graphDiv = document.getElementById("graph-display");
-const graphCanvas = document.getElementById("weightChart").getContext("2d");
 
 // Submit Button
 function weightTracker() {
@@ -70,24 +69,39 @@ function displayResults() {
 
 		dayString = day + nth(day);
 
-		//Create Results list
 		const node = document.createElement("li");
-		const spanDate = document.createElement("span");
-		spanDate.className = "date";
-		const spanWeight = document.createElement("span");
-		spanWeight.className = "weight";
 
-		let dateText = document.createTextNode(`${year}  ${month} ${dayString} `);
+		let markUp = `
 
-		const weightText = document.createTextNode(
-			`${stones} st \xa0\xa0\ ${pounds} lbs`
-		);
-		spanDate.appendChild(dateText);
-		spanWeight.appendChild(weightText);
-		node.appendChild(spanDate);
-		node.appendChild(spanWeight);
+			<span class="date">${year} \xa0\xa0${month} ${dayString}</span>
+			<span class="weight-stones"><span class="weight-bold">${stones}</span> st \xa0\xa0\ <span class="weight-bold">${pounds}</span> lbs</span>
+			<span class="weight-pounds">( ${value} lbs )</span>
+
+		`;
+
+		node.innerHTML = markUp;
+
 		resultsOutput.appendChild(node);
+		//Create Results list
+
+		// const spanDate = document.createElement("span");
+		// spanDate.className = "date";
+		// const spanWeight = document.createElement("span");
+		// spanWeight.className = "weight";
+
+		// let dateText = document.createTextNode(`${year}  ${month} ${dayString} `);
+
+		// const weightText = document.createTextNode(
+		// 	`${stones} st \xa0\xa0\ ${pounds} lbs`
+		// );
+		// spanDate.appendChild(dateText);
+		// spanWeight.appendChild(weightText);
+		// node.appendChild(spanDate);
+		// node.appendChild(spanWeight);
+		// resultsOutput.appendChild(node);
 	}
+
+	displayGraph();
 }
 // 14lbs = 1 stone
 // 152lbs = 10st 12lbs
@@ -151,6 +165,19 @@ function deleteEntry() {
 
 //Display graph from localhost data
 function displayGraph() {
+	//clear canvas by deleting canvas and re adding
+
+	const graphDiv = document.getElementById("graph-display");
+	let graphCanvas = document.getElementById("weightChart");
+
+	graphCanvas.remove();
+
+	let newCanvas = document.createElement("canvas");
+	newCanvas.id = "weightChart";
+	graphDiv.appendChild(newCanvas);
+	graphCanvas = document.getElementById("weightChart").getContext("2d");
+
+	//////
 	let myDates = [];
 	let myWeights = [];
 
@@ -171,7 +198,10 @@ function displayGraph() {
 
 	let myWeightsMax = Math.max(...myWeightsLastFive);
 	let myWeightsMin = Math.min(...myWeightsLastFive);
+	let targetWeight = [171, 171, 171, 171, 171];
 
+	// graphCanvas.clearRect(0, 0, canvas.width, canvas.height);
+	// https://stackoverflow.com/questions/40056555/destroy-chart-js-bar-graph-to-redraw-other-graph-in-same-canvas
 	new Chart(graphCanvas, {
 		type: "line",
 		data: {
@@ -182,20 +212,51 @@ function displayGraph() {
 					data: myWeightsLastFive, // your data for X axis go in here - must be array []
 					borderWidth: 1,
 				},
+				{
+					label: "Target weight",
+					data: targetWeight,
+					borderWidth: 2,
+					radius: 0,
+				},
 			],
 		},
 		options: {
+			responsive: true,
+			radius: 1, // radius of dots on graph in pixles
 			scales: {
 				y: {
 					min: myWeightsMin,
 					max: myWeightsMax,
+					ticks: {
+						callback: function (value) {
+							return value + " lbs";
+						},
+						color: "#c0c9d1",
+					},
+					grid: {
+						color: "#415c5c",
+					},
+				},
+				x: {
+					ticks: {
+						color: "#c0c9d1",
+					},
+					grid: {
+						color: "transparent",
+					},
 				},
 			},
 
 			plugins: {
 				title: {
-					display: true,
-					text: "Last five entries",
+					display: false,
+				},
+				legend: {
+					labels: {
+						usePointStyle: true,
+						pointStyle: "line",
+						color: "#c0c9d1",
+					},
 				},
 			},
 		},
