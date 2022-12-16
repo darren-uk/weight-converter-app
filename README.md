@@ -3,6 +3,9 @@
 > For when your weight scales only show pounds (lbs) and you want it converted to Stones (st lbs)
 
 > Keep track of your weight by storing in local storge of web browser
+> Display entries of your weight
+> Display Chart / Graph of entries
+> Set you target weight
 
 > Display entries of your weight
 
@@ -25,7 +28,7 @@
 - 1.4.1 - Removed live preview of weight conversion
 - 1.5 - Added chart display using Chart.js from https://www.chartjs.org/
 - 1.5.1 - Changed chart to display last 5 entries on chart.
-- 1.6 - changed UI interface
+- 1.6 - Changed UI
 
 ## Dependencies / Libraries
 
