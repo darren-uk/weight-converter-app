@@ -7,6 +7,14 @@
 > Display Chart / Graph of entries
 > Set you target weight
 
+> Display entries of your weight
+
+> Display Chart / Graph of entries
+
+> Set you target weight
+
+> Download your data for Excel spreadsheet (.csv)
+
 ## Changelog
 
 - 1.0 - Add Enter Date, Enter weight, convert to stones and list below.
@@ -20,7 +28,8 @@
 - 1.4.1 - Removed live preview of weight conversion
 - 1.5 - Added chart display using Chart.js from https://www.chartjs.org/
 - 1.5.1 - Changed chart to display last 5 entries on chart.
-        
+- 1.6 - Changed UI
+
 ## Dependencies / Libraries
 
 - ChartJS URL https://www.chartjs.org/
