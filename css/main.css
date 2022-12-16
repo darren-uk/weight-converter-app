@@ -77,6 +77,12 @@ section:last-of-type {
   border: none;
 }
 
+.date-layout {
+  font-size: 0.5em;
+  color: var(--text-white);
+  margin-left: 1em;
+}
+
 ul#inputs li {
   list-style: none;
   display: -webkit-box;
@@ -90,7 +96,7 @@ ul#inputs li {
   color: var(--text-bright);
 }
 ul#inputs li input {
-  width: 15ch;
+  width: 18ch;
   background: var(--text-white);
   border: none;
   text-align: right;
