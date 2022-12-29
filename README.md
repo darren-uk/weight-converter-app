@@ -1,4 +1,4 @@
-# weight-converter-app
+# Weight Tracker Web Application
 
 > For when your weight scales only show pounds (lbs) and you want it converted to Stones (st lbs)
 
