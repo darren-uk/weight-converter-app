@@ -3,9 +3,6 @@
 > For when your weight scales only show pounds (lbs) and you want it converted to Stones (st lbs)
 
 > Keep track of your weight by storing in local storge of web browser
-> Display entries of your weight
-> Display Chart / Graph of entries
-> Set you target weight
 
 > Display entries of your weight
 
@@ -41,3 +38,7 @@
 - WARNING - Clearing / cleaning browser cache, cookies or storage will affect or DELETE data stored on users browser.
 - Data is stored in browser with local storage
 - If user visits app in another browser, data will not display. Data is stored on users local machine and in browser local storage. All browsers have own local storage.
+
+## Contact details
+
+Contact me via twitter [@darren_colson](https://twitter.com/darren_colson)
