@@ -32,6 +32,8 @@
 ## Dependencies / Libraries
 
 - ChartJS URL https://www.chartjs.org/
+- Lightweight client-side loader that feature-detects and load polyfills only when necessary https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js
+- Markdown file converter https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js
 
 ## Disclaimer
 
