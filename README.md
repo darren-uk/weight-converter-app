@@ -38,6 +38,9 @@
 - WARNING - Clearing / cleaning browser cache, cookies or storage will affect or DELETE data stored on users browser.
 - Data is stored in browser with local storage
 - If user visits app in another browser, data will not display. Data is stored on users local machine and in browser local storage. All browsers have own local storage.
+- DATA IS NOT STORED OR SHARED WITH ANYONE EXCEPT YOURSELF. WE COLLECT NO ADDITIONAL DATA.
+- WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR LOSS OF DATA STORED OR ANYONE ELSE INJECTING MALICIOUS DATA AND DAMAGING HARDWARE OR SOFTWARE.
+- WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR ANY ACTIONS OR CHANGES OF LIBRARIES OR DEPENDENCIES LISTED ABOVE.
 
 ## Contact details
 
