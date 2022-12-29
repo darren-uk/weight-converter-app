@@ -29,7 +29,6 @@
 - 1.5 - Added chart display using Chart.js from https://www.chartjs.org/
 - 1.5.1 - Changed chart to display last 5 entries on chart.
 - 1.6 - Changed UI
-- 1.7 - changed delete function
 
 ## Dependencies / Libraries
 
