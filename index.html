@@ -14,15 +14,37 @@
 
 
     <div class="app-container">
-        <section>
-            <h1>Weight Tracker </h1>
-            <div class="version">Version 1.6 <span id="version-date">Dec 2022</span></div>
-        </section>
+        <header>
+            <nav>
+                <div class="title">
+                    <h1>Weight Tracker </h1>
+                    <div class="version">Version 1.7.1 <span id="version-date">Dec 2022</span></div>
+                </div>
+                <div class="toggle">
+                    <input type="checkbox">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <ul id="menu-main">
+                        <li><label for="target-input">Target Weight ( lbs )</label><input type="number"
+                                id="target-input" placeholder="Pounds" maxlength="4" size="6"><input type="button"
+                                value="set" onclick="storeTarget()" id="set-target-button" class="target-button"></li>
+                        <li><label>Download Spreadsheet (.csv file) </label><input type="button" value="Download"
+                                onClick="backUpCsv()" id="backup-csv" class="download-button"></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <section>
             <form id="details">
                 <ul id="inputs">
-                    <li><label for="date-input">Enter Date <span class="date-layout">DD / MM / YYYY</span></label><input
-                            type="date" name="date" id="date-input" placeholder="date" required></li>
+                    <li><label for="date-input">Select/Enter Date <span class="date-layout">DD / MM /
+                                YYYY</span></label><input type="date" name="date" id="date-input" placeholder="date"
+                            required></li>
                     <li><label for="weight-input">Enter Weight ( lbs )</label><input type="number" placeholder="Pounds"
                             maxlength="4" size="6" id="weight-input"></li>
                 </ul>
@@ -30,9 +52,7 @@
                 <ul id="buttons">
                     <li><input type="button" value="Save" onClick="weightTracker()" id="calculate"></li>
                     <li><label for="deleteLast">Selected date - </label><input type="button" value="Delete"
-                            onClick="deleteEntry()" id="deleteLast"></li>
-                    <li><label>Spreadsheet - </label><input type="button" value="Download" onClick="backUpCsv()"
-                            id="backup-csv"></li>
+                            onClick="deleteEntry()" id="deleteLast" class="delete-button"></li>
                 </ul>
 
             </form>
@@ -52,7 +72,7 @@
     </div> <!-- App container -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/newscript.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 

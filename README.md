@@ -29,6 +29,8 @@
 - 1.5 - Added chart display using Chart.js from https://www.chartjs.org/
 - 1.5.1 - Changed chart to display last 5 entries on chart.
 - 1.6 - Changed UI
+- 1.7 - Add drop down menu at top to clean up UI.
+- 1.7.1 - add target weight input in drop down menu. Target weight now stored in LocalStorage. Target weight is included in .csv download.
 
 ## Dependencies / Libraries
 
