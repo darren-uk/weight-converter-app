@@ -93,23 +93,6 @@ function displayResults() {
 		node.innerHTML = markUp;
 
 		resultsOutput.appendChild(node);
-		//Create Results list
-
-		// const spanDate = document.createElement("span");
-		// spanDate.className = "date";
-		// const spanWeight = document.createElement("span");
-		// spanWeight.className = "weight";
-
-		// let dateText = document.createTextNode(`${year}  ${month} ${dayString} `);
-
-		// const weightText = document.createTextNode(
-		// 	`${stones} st \xa0\xa0\ ${pounds} lbs`
-		// );
-		// spanDate.appendChild(dateText);
-		// spanWeight.appendChild(weightText);
-		// node.appendChild(spanDate);
-		// node.appendChild(spanWeight);
-		// resultsOutput.appendChild(node);
 	}
 
 	displayGraph();
@@ -211,12 +194,12 @@ function displayGraph() {
 
 	let targetValue = localStorage.getItem("target");
 
-	let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap above line on graph
+	let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap at top of graph
 	let myWeightsMin;
 	if (Math.min(...myWeightsLastFive) < targetValue) {
-		myWeightsMin = Math.min(...myWeightsLastFive);
+		myWeightsMin = Math.min(...myWeightsLastFive) - 2; // -2 adds gap at bottom of graph
 	} else {
-		myWeightsMin = targetValue;
+		myWeightsMin = targetValue - 2; // -2 adds gap at bottom of graph
 	}
 
 	let targetWeight = [

@@ -3,7 +3,7 @@
 	--text-white: #c0c9d1;
 	--text-bright: #fff;
 	--line-background: #415c5c;
-	--app-width: 500px;
+	--app-width: 700px;
 	--app-background: rgb(48, 73, 73);
 	--menu-background: rgb(68, 102, 102);
 }
@@ -42,6 +42,7 @@ img {
 
 .app-container {
 	width: var(--app-width);
+	width: clamp(300px, 100%, var(--app-width));
 	min-height: 500px;
 	background-color: var(--app-background);
 	border-radius: 1em;
