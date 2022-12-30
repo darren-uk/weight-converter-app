@@ -1,11 +1,8 @@
-# weight-converter-app
+# Weight Tracker Web Application
 
 > For when your weight scales only show pounds (lbs) and you want it converted to Stones (st lbs)
 
 > Keep track of your weight by storing in local storge of web browser
-> Display entries of your weight
-> Display Chart / Graph of entries
-> Set you target weight
 
 > Display entries of your weight
 
@@ -29,13 +26,24 @@
 - 1.5 - Added chart display using Chart.js from https://www.chartjs.org/
 - 1.5.1 - Changed chart to display last 5 entries on chart.
 - 1.6 - Changed UI
+- 1.7 - Add drop down menu at top to clean up UI.
+- 1.7.1 - add target weight input in drop down menu. Target weight now stored in LocalStorage. Target weight is included in .csv download.
 
 ## Dependencies / Libraries
 
 - ChartJS URL https://www.chartjs.org/
+- Lightweight client-side loader that feature-detects and load polyfills only when necessary https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js
+- Markdown file converter https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js
 
 ## Disclaimer
 
 - WARNING - Clearing / cleaning browser cache, cookies or storage will affect or DELETE data stored on users browser.
 - Data is stored in browser with local storage
 - If user visits app in another browser, data will not display. Data is stored on users local machine and in browser local storage. All browsers have own local storage.
+- DATA IS NOT STORED OR SHARED WITH ANYONE EXCEPT YOURSELF. WE COLLECT NO ADDITIONAL DATA.
+- WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR LOSS OF DATA STORED OR ANYONE ELSE INJECTING MALICIOUS DATA AND DAMAGING HARDWARE OR SOFTWARE.
+- WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR ANY ACTIONS OR CHANGES OF LIBRARIES OR DEPENDENCIES LISTED ABOVE.
+
+## Contact details
+
+Contact me via twitter [@darren_colson](https://twitter.com/darren_colson)
