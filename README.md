@@ -35,6 +35,11 @@
 - Lightweight client-side loader that feature-detects and load polyfills only when necessary https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js
 - Markdown file converter https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js
 
+## Your Data
+- All data you input into the site is only stored locally on your machine. It is stored in your browsers local storage and will not expire unless you manually delete it. The data is linked to the web address of this site.
+- You have access to your data by using the download option in the menu. The site will create a spreadsheet file with the extension .csv
+- None of your inputed data is collected by me or any third party.
+
 ## Disclaimer
 
 - WARNING - Clearing / cleaning browser cache, cookies or storage will affect or DELETE data stored on users browser.
