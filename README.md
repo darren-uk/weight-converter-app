@@ -52,12 +52,12 @@
 ## FAQ
 - Download backup of your data by selecting download button in menu screen. A spreadsheet .csv file will be created.
 - Restore backup of your data by selecting upload button in menu screen. Select the .csv file that was created by the backup system.
-      - Restore will overwrite the data stored in the browser local storage based on date. Other dated entries will not be deleted automatically. Clear all data before using Restore backup option if you dont want data mixed up.
+-     Restore will overwrite the data stored in the browser local storage based on date. Other dated entries will not be deleted automatically. Clear all data before using Restore backup option if you dont want data mixed up.
 - Clear all of your data from the site and local storage by selecting clear all button in menu screen. THIS IS PERMINENT and cannot be undone. Data can only be restored by using Restore backup function and selecting .csv file created by site.
 - Delete a single entry by selecting date on front page and using delete entry button.
 - Use a speadsheet program (EXCEL or Google Sheets) to open the backup .csv file and view all stored data.
-      - When opening file for the first time in EXCEL and option is presented, select show data seperated by comma.
-      - You can create various graphs and charts to your liking.
+-     When opening file for the first time in EXCEL and option is presented, select show data seperated by comma.
+-     You can create various graphs and charts to your liking.
 
 ## Contact details
 
