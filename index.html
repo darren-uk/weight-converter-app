@@ -7,19 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Keep track of your weight">
     <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="preload" href="css/main.min.css" as="style" />
     <link rel="stylesheet" href="css/main.min.css">
     <title>Weight Tracker APP</title>
+    <style>
+        #main-menu {
+            transform: translate(110%, 0);
+        }
+    </style>
 </head>
 
 <body onload="displayResults(),displayGraph()">
-
 
     <div class="app-container">
         <header>
             <nav>
                 <div class="title">
-                    <h1>Weight Tracker </h1>
-                    <div class="version">Version 1.7.1 <span id="version-date">Dec 2022</span></div>
+                    <h1>Weight Tracker</h1>
+                    <div class="version">Version 1.8.0 Oct 2024 (imperial)</div>
                 </div>
                 <div class="toggle">
                     <input type="checkbox" aria-label="Hamburger">
@@ -30,12 +35,76 @@
                     </div>
 
                     <ul id="menu-main">
-                        <li><label for="target-input">Target Weight ( lbs )</label><input type="number"
-                                id="target-input" placeholder="Pounds" maxlength="4" size="6"><input type="button"
-                                value="set" onclick="storeTarget()" id="set-target-button" class="target-button"></li>
-                        <li><label>Download Spreadsheet (.csv file) </label><input type="button" value="Download"
-                                onClick="backUpCsv()" id="backup-csv" class="download-button"></li>
-                        <li><a href="about.html">About</a></li>
+                        <li>
+                            <div>
+                                <p> Work out you target weight from BUPA BMI index</p>
+                                <a href="https://www.bupa.co.uk/health-information/bmi-calculator" target="_blank">
+                                    <input type="button" value="Visit Site" class="link-button">
+                                </a>
+                            </div>
+                            <hr>
+                            <div>
+                                <label for="target-input-stone">Target weight (stone)</label>
+                                <input type="number" id="target-input-stone" placeholder="Stone" maxlength="4" size="6">
+                            </div>
+                            <div>
+                                <label for="target-input-pounds">Target Weight ( lbs )</label>
+                                <input type="number" id="target-input-pounds" placeholder="Pounds" max="14"
+                                    maxlength="4" size="6">
+                            </div>
+                            <div>
+                                <p>14 pounds = 1 stone</p>
+                                <input type="button" value="set" onclick="storeTarget()" id="set-target-button"
+                                    class="target-button">
+                            </div>
+                            <div>
+                                <p>Current Target is set to <span id="target-stone">0</span> stone & <span
+                                        id="target-pounds">0</span> pounds</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <label for="backup-csv">Backup Data </label>
+                                <input type="button" value="Download" onClick="backUpCsv()" id="backup-csv"
+                                    class="download-button">
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <!-- <input type="file" id="csvFileInput" accept=".csv" onchange="return fileValidation()"> -->
+                                <input type="file" id="csvFileInput" onchange="return fileValidation()">
+                            </div>
+                            <div>
+
+                                <label for="restore-csv">Restore Data</label>
+                                <input type="button" value="Upload" onclick="restoreData()" id="restore-csv"
+                                    class="upload-button">
+                            </div>
+                            <div id="user-message">
+                                Loading data will overide any dates already stored
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <label for="delete-all">Delete all your data from site</label>
+                                <a href="#" onclick="confirmDelete()" id="delete-all-button">DELETE ALL DATA <img
+                                        class="warning-symbol" src="./images/triangle-exclamation-solid.svg"
+                                        alt="warning symbol"></a>
+                            </div>
+                            <div id="delete-message">
+                                WARNING - Please back up data before selecting
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <a href="about.html" target="_self">
+                                    <input type="button" value="SITE INFORMATION" class="link-button">
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -76,7 +145,5 @@
     <script src="js/script.js"></script>
 
 </body>
-
-
 
 </html>

@@ -4,7 +4,19 @@ const dateInput = document.getElementById("date-input");
 const weightInput = document.getElementById("weight-input");
 const resultsOutput = document.getElementById("results");
 const graphDiv = document.getElementById("graph-display");
-const targetInput = document.getElementById("target-input");
+const targetInputPounds = document.getElementById("target-input-pounds");
+const targetInputStone = document.getElementById("target-input-stone");
+const userMessage = document.getElementById("user-message");
+const targetStone = document.getElementById("target-stone");
+const targetPounds = document.getElementById("target-pounds");
+
+//SITE CLOSING DOWN MESSAGE
+function siteCloseMessage() {
+	alert(
+		"MIGRATING TO NEW ADDRESS\nThis site https://myweight.netlify.app/ \n is closing on 30th November 2024 \n Backup all your data and use Restore Data at new site \n http://newsite.co.uk"
+	);
+}
+// siteCloseMessage();
 
 // Submit Button
 function weightTracker() {
@@ -19,12 +31,42 @@ function weightTracker() {
 
 // Set Target weight
 function storeTarget() {
-	if (targetInput.value) {
-		localStorage.setItem("target", targetInput.value);
-		displayGraph();
+	let targetPounds;
+	let targetStone;
+
+	if (targetInputPounds.value) {
+		targetPounds = parseInt(targetInputPounds.value);
+	} else {
+		targetPounds = 0;
 	}
+
+	if (targetInputStone.value) {
+		targetStone = targetInputStone.value * 14;
+	} else {
+		targetStone = 0;
+	}
+
+	let target = targetPounds + targetStone;
+
+	localStorage.setItem("target", target);
+	targetStone = parseInt(targetInputStone.value);
+	targetInputPounds.value = "";
+	targetInputStone.value = "";
+	displayGraph();
+	displayTargetWeight();
 }
 
+//display target weight
+function displayTargetWeight() {
+	if (localStorage.getItem("target")) {
+		targetStone.innerText = Math.floor(localStorage.getItem("target") / 14);
+		targetPounds.innerText = localStorage.getItem("target") % 14;
+	} else {
+		targetStone.innerText = 0;
+		targetPounds.innerText = 0;
+	}
+}
+displayTargetWeight();
 // Get data from local storage and populate results div
 function displayResults() {
 	//clear results list
@@ -145,6 +187,67 @@ function backUpCsv() {
 	link.click();
 }
 
+// restore data from file
+function restoreData() {
+	let file = document.getElementById("csvFileInput").files[0];
+	let filePath = document.getElementById("csvFileInput").value;
+
+	if (file) {
+		let reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = function () {
+			let csvString = reader.result;
+			// clean up string using split
+			let lines = csvString.split("\r\n");
+			// lines is now an array with each item a string "date,weight"
+			for (let i = 0; i < lines.length; i++) {
+				let line = lines[i].split(",");
+				//check for any undefined or null entries
+				if (line != "") {
+					// localStorage (date,weight)
+					localStorage.setItem(line[0], line[1]);
+				}
+			}
+			// Clear browse file input
+			document.getElementById("csvFileInput").value = "";
+			// Change message
+			userMessage.innerText = "Data stored to local storage";
+			// Update display and graph
+			displayResults();
+			displayTargetWeight();
+		};
+		reader.onerror = function () {
+			console.log(reader.error);
+			userMessage.innerText =
+				"There was an error recieving your file, Please try again" +
+				reader.error;
+		};
+	} else {
+		console.log("No File Selected");
+		userMessage.innerText = "No File selected";
+	}
+}
+
+// limit file type for restoreData()
+function fileValidation() {
+	var fileInput = document.getElementById("csvFileInput");
+
+	var filePath = fileInput.value;
+
+	// Allowing file type
+	var allowedExtensions = /(\.csv)$/i;
+
+	if (!allowedExtensions.exec(filePath)) {
+		alert(
+			"not '.CSV' file -  Invalid file type\nFile template must be MyWeight_**_**_****.csv"
+		);
+		userMessage.innerText =
+			' Please select again. File template must be "MyWeight_**_**_****.csv"';
+		fileInput.value = "";
+		return false;
+	}
+}
+
 //Delete entry
 function deleteEntry() {
 	// get value from date input
@@ -155,7 +258,19 @@ function deleteEntry() {
 	displayResults();
 }
 
-// graphDiv
+//Confirm delete of all data
+function confirmDelete() {
+	let txt;
+	if (confirm("Press OK to confirm delete of all data")) {
+		txt = "All data has been deleted";
+		localStorage.clear();
+		displayResults();
+		displayTargetWeight();
+	} else {
+		txt = "You pressed Cancel!";
+	}
+	document.getElementById("delete-message").innerText = txt;
+}
 
 //Display graph from localhost data
 function displayGraph() {
@@ -183,7 +298,6 @@ function displayGraph() {
 	}
 
 	myDates.sort();
-	// myDates.reverse();
 	for (let i = 0; i < myDates.length; i++) {
 		let localItem = localStorage.getItem(myDates[i]);
 		myWeights.push(localItem);
@@ -223,7 +337,10 @@ function displayGraph() {
 					borderWidth: 1,
 				},
 				{
-					label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
+					// label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
+					label: `Target weight (${Math.floor(targetValue / 14)} stone ${
+						targetValue % 14
+					} pounds)`,
 					data: targetWeight,
 					borderWidth: 2,
 					radius: 0,

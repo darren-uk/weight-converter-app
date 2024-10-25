@@ -6,6 +6,7 @@
 	--app-width: 700px;
 	--app-background: rgb(48, 73, 73);
 	--menu-background: rgb(68, 102, 102);
+	--menu-background-offset: rgb(63, 94, 94);
 }
 
 *,
@@ -94,19 +95,23 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
 	-moz-appearance: textfield;
+	appearance: textfield;
 }
 
-input[type="button"] {
+input[type="button"],
+#delete-all-button {
 	border: 1px solid rgb(63, 94, 94);
 	border-radius: 6px;
-	width: 8em;
+	min-width: 8em;
 	height: 2em;
 	padding: 0 1em;
 	font-size: 1em;
 	color: #fff;
 	font-family: "open sans", Helvetica, Arial, sans-serif;
-	font-weight: 400;
+	font-weight: bold;
 	text-transform: uppercase;
+	display: flex;
+	align-items: center;
 
 	&:hover {
 		background-color: #fff;
@@ -132,9 +137,19 @@ input#calculate {
 		cursor: pointer;
 	}
 }
-.download-button {
+.download-button,
+.upload-button,
+.link-button,
+#delete-all-button {
 	background-color: #333437;
 	color: var(--text-bright);
+}
+
+.warning-symbol {
+	display: inline-block;
+	height: 1em;
+	aspect-ratio: 1;
+	margin-left: 1em;
 }
 .target-button {
 	background-color: rgb(80, 182, 134);
@@ -237,12 +252,44 @@ nav {
 		padding: 3em 2.1em;
 		border-bottom: 1px solid var(--line-background);
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		a {
+		gap: 2em;
+		flex-direction: column;
+		justify-content: center;
+		& a {
 			color: inherit;
 			text-decoration: none;
+			&.delete-all-button {
+				background: white;
+				color: var(--paragraph-color);
+				padding: 0.2em 1em;
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
+				border-radius: 3px;
+				font-weight: bold;
+				flex-shrink: 0;
+			}
 		}
+		& div {
+			display: flex;
+			gap: 2em;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		& div:last-of-type {
+			justify-content: flex-end;
+		}
+		& label {
+			display: flex;
+			gap: 1em;
+			align-items: center;
+		}
+	}
+	li:nth-of-type(even) {
+		background: var(--menu-background-offset);
+	}
+	li:last-child {
+		height: 100dvh;
 	}
 }
 // FORM / INPUT LAYOUT
