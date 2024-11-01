@@ -61,7 +61,7 @@ h2 {
 
 .version {
 	font-size: 1.2em;
-	color: rgb(105, 194, 153);
+	color: rgb(121, 202, 164);
 	font-weight: 700;
 }
 
@@ -79,12 +79,22 @@ section:last-of-type {
 input[type="number"],
 input[type="text"],
 input[type="date"] {
-	width: 18ch;
+	width: 19.5ch;
 	background: var(--text-white);
 	border: none;
+	border-radius: 6px;
 	text-align: right;
 	padding: 0 1em;
 	color: var(--paragraph-color);
+	min-height: 2em;
+}
+
+input[type="file"] {
+	border: 1px solid white;
+	border-radius: 6px;
+	min-height: 2em;
+	line-height: 2rem;
+	padding: 0 0.3em;
 }
 
 input::-webkit-outer-spin-button,
@@ -103,9 +113,11 @@ input[type="button"],
 	border: 1px solid rgb(63, 94, 94);
 	border-radius: 6px;
 	min-width: 8em;
-	height: 2em;
-	padding: 0 1em;
-	font-size: 1em;
+	min-width: 18ch;
+	min-height: 2em;
+	padding: 0.6em 1em;
+	font-size: 1.2em;
+	letter-spacing: 0.05em;
 	color: #fff;
 	font-family: "open sans", Helvetica, Arial, sans-serif;
 	font-weight: bold;
@@ -321,6 +333,7 @@ ul#buttons {
 		display: flex;
 		justify-content: end;
 		padding: 0.5em 0;
+		align-items: center;
 	}
 	li:nth-of-type(1) {
 		margin-bottom: 3em;

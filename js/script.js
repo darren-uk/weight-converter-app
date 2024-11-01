@@ -9,6 +9,7 @@ const targetInputStone = document.getElementById("target-input-stone");
 const userMessage = document.getElementById("user-message");
 const targetStone = document.getElementById("target-stone");
 const targetPounds = document.getElementById("target-pounds");
+const targetDisplay = document.getElementById("target");
 
 //SITE CLOSING DOWN MESSAGE
 function siteCloseMessage() {
@@ -61,9 +62,11 @@ function displayTargetWeight() {
 	if (localStorage.getItem("target")) {
 		targetStone.innerText = Math.floor(localStorage.getItem("target") / 14);
 		targetPounds.innerText = localStorage.getItem("target") % 14;
+		targetDisplay.innerText = localStorage.getItem("target");
 	} else {
-		targetStone.innerText = 0;
-		targetPounds.innerText = 0;
+		targetStone.innerText = "0";
+		targetPounds.innerText = "0";
+		targetDisplay.innerText = "0";
 	}
 }
 displayTargetWeight();
@@ -76,7 +79,7 @@ function displayResults() {
 	let dateList = [];
 	for (let i = 0; i < localStorage.length; i++) {
 		let key = localStorage.key(i);
-		if (key != "target") {
+		if (key != "target" && key != "") {
 			dateList.push(key);
 		}
 	}
@@ -338,9 +341,9 @@ function displayGraph() {
 				},
 				{
 					// label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
-					label: `Target weight (${Math.floor(targetValue / 14)} stone ${
+					label: `Target weight = ${Math.floor(targetValue / 14)} stone ${
 						targetValue % 14
-					} pounds)`,
+					} pounds (${Math.floor(targetValue)} pounds)`,
 					data: targetWeight,
 					borderWidth: 2,
 					radius: 0,
