@@ -10,6 +10,7 @@ const userMessage = document.getElementById("user-message");
 const targetStone = document.getElementById("target-stone");
 const targetPounds = document.getElementById("target-pounds");
 const targetDisplay = document.getElementById("target");
+const graphText = document.getElementById("graph-text");
 
 //SITE CLOSING DOWN MESSAGE
 function siteCloseMessage() {
@@ -216,8 +217,10 @@ function restoreData() {
 			// Change message
 			userMessage.innerText = "Data stored to local storage";
 			// Update display and graph
+
 			displayResults();
 			displayTargetWeight();
+			displayGraph();
 		};
 		reader.onerror = function () {
 			console.log(reader.error);
@@ -269,6 +272,7 @@ function confirmDelete() {
 		localStorage.clear();
 		displayResults();
 		displayTargetWeight();
+		displayGraph();
 	} else {
 		txt = "You pressed Cancel!";
 	}
@@ -277,118 +281,127 @@ function confirmDelete() {
 
 //Display graph from localhost data
 function displayGraph() {
-	//clear canvas by deleting canvas and re adding
-
-	const graphDiv = document.getElementById("graph-display");
-	let graphCanvas = document.getElementById("weightChart");
-
-	graphCanvas.remove();
-
-	let newCanvas = document.createElement("canvas");
-	newCanvas.id = "weightChart";
-	graphDiv.appendChild(newCanvas);
-	graphCanvas = document.getElementById("weightChart").getContext("2d");
-
-	//////
-	let myDates = [];
-	let myWeights = [];
-
-	for (let i = 0; i < localStorage.length; i++) {
-		let key = localStorage.key(i);
-		if (key != "target") {
-			myDates.push(key);
+	if (localStorage.getItem("target") === null) {
+		let graphDiv = document.getElementById("graph-display");
+		let graphCanvas = document.getElementById("weightChart");
+		graphText.innerHTML = `<h2>TRACK YOUR WEIGHT, ACHIEVE YOUR GOALS</h2><p>Track your weight effortlessly with Weight Tracker. Our app allows you to input your weight in stones and pounds, making it easy to monitor your progress. Stay on top of your health goals with detailed tracking and insightful analytics. Start your journey towards a healthier you today</P><br><h3>A graph will display after your first entry is logged</h3>`;
+		if (graphCanvas) {
+			graphCanvas.remove();
 		}
-	}
-
-	myDates.sort();
-	for (let i = 0; i < myDates.length; i++) {
-		let localItem = localStorage.getItem(myDates[i]);
-		myWeights.push(localItem);
-	}
-
-	let myDatesLastFive = myDates.slice(-5);
-	let myWeightsLastFive = myWeights.slice(-5);
-
-	let targetValue = localStorage.getItem("target");
-
-	let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap at top of graph
-	let myWeightsMin;
-	if (Math.min(...myWeightsLastFive) < targetValue) {
-		myWeightsMin = Math.min(...myWeightsLastFive) - 2; // -2 adds gap at bottom of graph
 	} else {
-		myWeightsMin = targetValue - 2; // -2 adds gap at bottom of graph
-	}
+		let graphDiv = document.getElementById("graph-display");
+		let graphCanvas = document.getElementById("weightChart");
+		graphText.innerHTML = "<h2>Last 5 entries</h2>";
+		//clear canvas by deleting canvas and re adding
+		if (graphCanvas) {
+			graphCanvas.remove();
+		}
+		let newCanvas = document.createElement("canvas");
+		newCanvas.id = "weightChart";
+		graphDiv.appendChild(newCanvas);
+		graphCanvas = document.getElementById("weightChart").getContext("2d");
 
-	let targetWeight = [
-		targetValue,
-		targetValue,
-		targetValue,
-		targetValue,
-		targetValue,
-	]; // same number as sliced (lastFive)
+		//////
+		let myDates = [];
+		let myWeights = [];
 
-	// graphCanvas.clearRect(0, 0, canvas.width, canvas.height);
-	// https://stackoverflow.com/questions/40056555/destroy-chart-js-bar-graph-to-redraw-other-graph-in-same-canvas
-	new Chart(graphCanvas, {
-		type: "line",
-		data: {
-			labels: myDatesLastFive, //Your labels for Y axis go in here - must be array []
-			datasets: [
-				{
-					label: "Weight lbs",
-					data: myWeightsLastFive, // your data for X axis go in here - must be array []
-					borderWidth: 1,
-				},
-				{
-					// label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
-					label: `Target weight = ${Math.floor(targetValue / 14)} stone ${
-						targetValue % 14
-					} pounds (${Math.floor(targetValue)} pounds)`,
-					data: targetWeight,
-					borderWidth: 2,
-					radius: 0,
-				},
-			],
-		},
-		options: {
-			responsive: true,
-			radius: 1, // radius of dots on graph in pixles
-			scales: {
-				y: {
-					min: myWeightsMin,
-					max: myWeightsMax,
-					ticks: {
-						callback: function (value) {
-							return value + " lbs";
+		for (let i = 0; i < localStorage.length; i++) {
+			let key = localStorage.key(i);
+			if (key != "target") {
+				myDates.push(key);
+			}
+		}
+
+		myDates.sort();
+		for (let i = 0; i < myDates.length; i++) {
+			let localItem = localStorage.getItem(myDates[i]);
+			myWeights.push(localItem);
+		}
+
+		let myDatesLastFive = myDates.slice(-5);
+		let myWeightsLastFive = myWeights.slice(-5);
+
+		let targetValue = localStorage.getItem("target");
+
+		let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap at top of graph
+		let myWeightsMin;
+		if (Math.min(...myWeightsLastFive) < targetValue) {
+			myWeightsMin = Math.min(...myWeightsLastFive) - 2; // -2 adds gap at bottom of graph
+		} else {
+			myWeightsMin = targetValue - 2; // -2 adds gap at bottom of graph
+		}
+
+		let targetWeight = [
+			targetValue,
+			targetValue,
+			targetValue,
+			targetValue,
+			targetValue,
+		]; // same number as sliced (lastFive)
+
+		// graphCanvas.clearRect(0, 0, canvas.width, canvas.height);
+		// https://stackoverflow.com/questions/40056555/destroy-chart-js-bar-graph-to-redraw-other-graph-in-same-canvas
+		new Chart(graphCanvas, {
+			type: "line",
+			data: {
+				labels: myDatesLastFive, //Your labels for Y axis go in here - must be array []
+				datasets: [
+					{
+						label: "Weight lbs",
+						data: myWeightsLastFive, // your data for X axis go in here - must be array []
+						borderWidth: 1,
+					},
+					{
+						// label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
+						label: `Target weight = ${Math.floor(targetValue / 14)} stone ${
+							targetValue % 14
+						} pounds (${Math.floor(targetValue)} pounds)`,
+						data: targetWeight,
+						borderWidth: 2,
+						radius: 0,
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				radius: 1, // radius of dots on graph in pixles
+				scales: {
+					y: {
+						min: myWeightsMin,
+						max: myWeightsMax,
+						ticks: {
+							callback: function (value) {
+								return value + " lbs";
+							},
+							color: "#c0c9d1",
 						},
-						color: "#c0c9d1",
+						grid: {
+							color: "#415c5c",
+						},
 					},
-					grid: {
-						color: "#415c5c",
+					x: {
+						ticks: {
+							color: "#c0c9d1",
+						},
+						grid: {
+							color: "transparent",
+						},
 					},
 				},
-				x: {
-					ticks: {
-						color: "#c0c9d1",
-					},
-					grid: {
-						color: "transparent",
-					},
-				},
-			},
 
-			plugins: {
-				title: {
-					display: false,
-				},
-				legend: {
-					labels: {
-						usePointStyle: true,
-						pointStyle: "line",
-						color: "#c0c9d1",
+				plugins: {
+					title: {
+						display: false,
+					},
+					legend: {
+						labels: {
+							usePointStyle: true,
+							pointStyle: "line",
+							color: "#c0c9d1",
+						},
 					},
 				},
 			},
-		},
-	});
+		});
+	}
 }
