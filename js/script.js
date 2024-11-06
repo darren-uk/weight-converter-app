@@ -4,7 +4,28 @@ const dateInput = document.getElementById("date-input");
 const weightInput = document.getElementById("weight-input");
 const resultsOutput = document.getElementById("results");
 const graphDiv = document.getElementById("graph-display");
-const targetInput = document.getElementById("target-input");
+const targetInputPounds = document.getElementById("target-input-pounds");
+const targetInputStone = document.getElementById("target-input-stone");
+const userMessage = document.getElementById("user-message");
+const targetStone = document.getElementById("target-stone");
+const targetPounds = document.getElementById("target-pounds");
+const targetDisplay = document.getElementById("target");
+const graphText = document.getElementById("graph-text");
+
+//SITE CLOSING DOWN MESSAGE
+function siteCloseMessage() {
+	if (
+		window.location.href == "https://myweight.netlify.app/" ||
+		window.location.href == "http://localhost:5500/index.html"
+	) {
+		alert(
+			" MIGRATING TO NEW ADDRESS\n\n This site https://myweight.netlify.app/ \n is closing on 30th November 2024 \n \n Backup all your data and use Restore Data at new site \n https://darren-uk.github.io/weight-converter-app/"
+		);
+	} else {
+		return;
+	}
+}
+siteCloseMessage();
 
 // Submit Button
 function weightTracker() {
@@ -19,12 +40,44 @@ function weightTracker() {
 
 // Set Target weight
 function storeTarget() {
-	if (targetInput.value) {
-		localStorage.setItem("target", targetInput.value);
-		displayGraph();
+	let targetPounds;
+	let targetStone;
+
+	if (targetInputPounds.value) {
+		targetPounds = parseInt(targetInputPounds.value);
+	} else {
+		targetPounds = 0;
 	}
+
+	if (targetInputStone.value) {
+		targetStone = targetInputStone.value * 14;
+	} else {
+		targetStone = 0;
+	}
+
+	let target = targetPounds + targetStone;
+
+	localStorage.setItem("target", target);
+	targetStone = parseInt(targetInputStone.value);
+	targetInputPounds.value = "";
+	targetInputStone.value = "";
+	displayGraph();
+	displayTargetWeight();
 }
 
+//display target weight
+function displayTargetWeight() {
+	if (localStorage.getItem("target")) {
+		targetStone.innerText = Math.floor(localStorage.getItem("target") / 14);
+		targetPounds.innerText = localStorage.getItem("target") % 14;
+		targetDisplay.innerText = localStorage.getItem("target");
+	} else {
+		targetStone.innerText = "0";
+		targetPounds.innerText = "0";
+		targetDisplay.innerText = "0";
+	}
+}
+displayTargetWeight();
 // Get data from local storage and populate results div
 function displayResults() {
 	//clear results list
@@ -34,7 +87,7 @@ function displayResults() {
 	let dateList = [];
 	for (let i = 0; i < localStorage.length; i++) {
 		let key = localStorage.key(i);
-		if (key != "target") {
+		if (key != "target" && key != "") {
 			dateList.push(key);
 		}
 	}
@@ -145,6 +198,69 @@ function backUpCsv() {
 	link.click();
 }
 
+// restore data from file
+function restoreData() {
+	let file = document.getElementById("csvFileInput").files[0];
+	let filePath = document.getElementById("csvFileInput").value;
+
+	if (file) {
+		let reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = function () {
+			let csvString = reader.result;
+			// clean up string using split
+			let lines = csvString.split("\r\n");
+			// lines is now an array with each item a string "date,weight"
+			for (let i = 0; i < lines.length; i++) {
+				let line = lines[i].split(",");
+				//check for any undefined or null entries
+				if (line != "") {
+					// localStorage (date,weight)
+					localStorage.setItem(line[0], line[1]);
+				}
+			}
+			// Clear browse file input
+			document.getElementById("csvFileInput").value = "";
+			// Change message
+			userMessage.innerText = "Data stored to local storage";
+			// Update display and graph
+
+			displayResults();
+			displayTargetWeight();
+			displayGraph();
+		};
+		reader.onerror = function () {
+			console.log(reader.error);
+			userMessage.innerText =
+				"There was an error recieving your file, Please try again" +
+				reader.error;
+		};
+	} else {
+		console.log("No File Selected");
+		userMessage.innerText = "No File selected";
+	}
+}
+
+// limit file type for restoreData()
+function fileValidation() {
+	var fileInput = document.getElementById("csvFileInput");
+
+	var filePath = fileInput.value;
+
+	// Allowing file type
+	var allowedExtensions = /(\.csv)$/i;
+
+	if (!allowedExtensions.exec(filePath)) {
+		alert(
+			"not '.CSV' file -  Invalid file type\nFile template must be MyWeight_**_**_****.csv"
+		);
+		userMessage.innerText =
+			' Please select again. File template must be "MyWeight_**_**_****.csv"';
+		fileInput.value = "";
+		return false;
+	}
+}
+
 //Delete entry
 function deleteEntry() {
 	// get value from date input
@@ -155,120 +271,144 @@ function deleteEntry() {
 	displayResults();
 }
 
-// graphDiv
+//Confirm delete of all data
+function confirmDelete() {
+	let txt;
+	if (confirm("Press OK to confirm delete of all data")) {
+		txt = "All data has been deleted";
+		localStorage.clear();
+		displayResults();
+		displayTargetWeight();
+		displayGraph();
+	} else {
+		txt = "You pressed Cancel!";
+	}
+	document.getElementById("delete-message").innerText = txt;
+}
 
 //Display graph from localhost data
 function displayGraph() {
-	//clear canvas by deleting canvas and re adding
-
-	const graphDiv = document.getElementById("graph-display");
-	let graphCanvas = document.getElementById("weightChart");
-
-	graphCanvas.remove();
-
-	let newCanvas = document.createElement("canvas");
-	newCanvas.id = "weightChart";
-	graphDiv.appendChild(newCanvas);
-	graphCanvas = document.getElementById("weightChart").getContext("2d");
-
-	//////
-	let myDates = [];
-	let myWeights = [];
-
-	for (let i = 0; i < localStorage.length; i++) {
-		let key = localStorage.key(i);
-		if (key != "target") {
-			myDates.push(key);
+	if (localStorage.getItem("target") === null) {
+		let graphDiv = document.getElementById("graph-display");
+		let graphCanvas = document.getElementById("weightChart");
+		graphText.innerHTML = `<h2>TRACK YOUR WEIGHT, ACHIEVE YOUR GOALS</h2><p>Track your weight effortlessly with Weight Tracker. Our app allows you to input your weight in stones and pounds, making it easy to monitor your progress. Stay on top of your health goals with detailed tracking and insightful analytics. Start your journey towards a healthier you today</P><br><h3>A graph will display after your first entry is logged</h3>`;
+		if (graphCanvas) {
+			graphCanvas.remove();
 		}
-	}
-
-	myDates.sort();
-	// myDates.reverse();
-	for (let i = 0; i < myDates.length; i++) {
-		let localItem = localStorage.getItem(myDates[i]);
-		myWeights.push(localItem);
-	}
-
-	let myDatesLastFive = myDates.slice(-5);
-	let myWeightsLastFive = myWeights.slice(-5);
-
-	let targetValue = localStorage.getItem("target");
-
-	let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap at top of graph
-	let myWeightsMin;
-	if (Math.min(...myWeightsLastFive) < targetValue) {
-		myWeightsMin = Math.min(...myWeightsLastFive) - 2; // -2 adds gap at bottom of graph
 	} else {
-		myWeightsMin = targetValue - 2; // -2 adds gap at bottom of graph
-	}
+		let graphDiv = document.getElementById("graph-display");
+		let graphCanvas = document.getElementById("weightChart");
+		graphText.innerHTML = "<h2>Last 5 entries</h2>";
+		//clear canvas by deleting canvas and re adding
+		if (graphCanvas) {
+			graphCanvas.remove();
+		}
+		let newCanvas = document.createElement("canvas");
+		newCanvas.id = "weightChart";
+		graphDiv.appendChild(newCanvas);
+		graphCanvas = document.getElementById("weightChart").getContext("2d");
 
-	let targetWeight = [
-		targetValue,
-		targetValue,
-		targetValue,
-		targetValue,
-		targetValue,
-	]; // same number as sliced (lastFive)
+		//////
+		let myDates = [];
+		let myWeights = [];
 
-	// graphCanvas.clearRect(0, 0, canvas.width, canvas.height);
-	// https://stackoverflow.com/questions/40056555/destroy-chart-js-bar-graph-to-redraw-other-graph-in-same-canvas
-	new Chart(graphCanvas, {
-		type: "line",
-		data: {
-			labels: myDatesLastFive, //Your labels for Y axis go in here - must be array []
-			datasets: [
-				{
-					label: "Weight lbs",
-					data: myWeightsLastFive, // your data for X axis go in here - must be array []
-					borderWidth: 1,
-				},
-				{
-					label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
-					data: targetWeight,
-					borderWidth: 2,
-					radius: 0,
-				},
-			],
-		},
-		options: {
-			responsive: true,
-			radius: 1, // radius of dots on graph in pixles
-			scales: {
-				y: {
-					min: myWeightsMin,
-					max: myWeightsMax,
-					ticks: {
-						callback: function (value) {
-							return value + " lbs";
+		for (let i = 0; i < localStorage.length; i++) {
+			let key = localStorage.key(i);
+			if (key != "target") {
+				myDates.push(key);
+			}
+		}
+
+		myDates.sort();
+		for (let i = 0; i < myDates.length; i++) {
+			let localItem = localStorage.getItem(myDates[i]);
+			myWeights.push(localItem);
+		}
+
+		let myDatesLastFive = myDates.slice(-5);
+		let myWeightsLastFive = myWeights.slice(-5);
+
+		let targetValue = localStorage.getItem("target");
+
+		let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap at top of graph
+		let myWeightsMin;
+		if (Math.min(...myWeightsLastFive) < targetValue) {
+			myWeightsMin = Math.min(...myWeightsLastFive) - 2; // -2 adds gap at bottom of graph
+		} else {
+			myWeightsMin = targetValue - 2; // -2 adds gap at bottom of graph
+		}
+
+		let targetWeight = [
+			targetValue,
+			targetValue,
+			targetValue,
+			targetValue,
+			targetValue,
+		]; // same number as sliced (lastFive)
+
+		// graphCanvas.clearRect(0, 0, canvas.width, canvas.height);
+		// https://stackoverflow.com/questions/40056555/destroy-chart-js-bar-graph-to-redraw-other-graph-in-same-canvas
+		new Chart(graphCanvas, {
+			type: "line",
+			data: {
+				labels: myDatesLastFive, //Your labels for Y axis go in here - must be array []
+				datasets: [
+					{
+						label: "Weight lbs",
+						data: myWeightsLastFive, // your data for X axis go in here - must be array []
+						borderWidth: 1,
+					},
+					{
+						// label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
+						label: `Target weight = ${Math.floor(targetValue / 14)} stone ${
+							targetValue % 14
+						} pounds (${Math.floor(targetValue)} pounds)`,
+						data: targetWeight,
+						borderWidth: 2,
+						radius: 0,
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				radius: 1, // radius of dots on graph in pixles
+				scales: {
+					y: {
+						min: myWeightsMin,
+						max: myWeightsMax,
+						ticks: {
+							callback: function (value) {
+								return value + " lbs";
+							},
+							color: "#c0c9d1",
 						},
-						color: "#c0c9d1",
+						grid: {
+							color: "#415c5c",
+						},
 					},
-					grid: {
-						color: "#415c5c",
+					x: {
+						ticks: {
+							color: "#c0c9d1",
+						},
+						grid: {
+							color: "transparent",
+						},
 					},
 				},
-				x: {
-					ticks: {
-						color: "#c0c9d1",
-					},
-					grid: {
-						color: "transparent",
-					},
-				},
-			},
 
-			plugins: {
-				title: {
-					display: false,
-				},
-				legend: {
-					labels: {
-						usePointStyle: true,
-						pointStyle: "line",
-						color: "#c0c9d1",
+				plugins: {
+					title: {
+						display: false,
+					},
+					legend: {
+						labels: {
+							usePointStyle: true,
+							pointStyle: "line",
+							color: "#c0c9d1",
+						},
 					},
 				},
 			},
-		},
-	});
+		});
+	}
 }

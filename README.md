@@ -12,6 +12,8 @@
 
 > Download your data for Excel spreadsheet (.csv)
 
+> Backup and restore you data locally.
+
 ## Changelog
 
 - 1.0 - Add Enter Date, Enter weight, convert to stones and list below.
@@ -28,12 +30,19 @@
 - 1.6 - Changed UI
 - 1.7 - Add drop down menu at top to clean up UI.
 - 1.7.1 - add target weight input in drop down menu. Target weight now stored in LocalStorage. Target weight is included in .csv download.
+- 1.8.0 - Added backup and restore function. Added delete all data function. Added set target weight with stones and pounds.
 
 ## Dependencies / Libraries
 
 - ChartJS URL https://www.chartjs.org/
 - Lightweight client-side loader that feature-detects and load polyfills only when necessary https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js
 - Markdown file converter https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js
+
+## Your Data
+
+- All data you input into the site is only stored locally on your machine. It is stored in your browsers local storage and will not expire unless you manually delete it. The data is linked to the web address of this site.
+- You have access to your data by using the download option in the menu. The site will create a spreadsheet file with the extension .csv
+- None of your inputed data is collected by me or any third party.
 
 ## Disclaimer
 
@@ -44,6 +53,18 @@
 - WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR LOSS OF DATA STORED OR ANYONE ELSE INJECTING MALICIOUS DATA AND DAMAGING HARDWARE OR SOFTWARE.
 - WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR ANY ACTIONS OR CHANGES OF LIBRARIES OR DEPENDENCIES LISTED ABOVE.
 
+## FAQ
+
+- Download backup of your data by selecting download button in menu screen. A spreadsheet .csv file will be created.
+- Restore backup of your data by selecting upload button in menu screen. Select the .csv file that was created by the backup system.
+  - Restore will overwrite the data stored in the browser local storage based on date. Other dated entries will not be deleted automatically. Clear all data before using Restore backup option if you dont want data mixed up.
+- Clear all of your data from the site and local storage by selecting clear all button in menu screen. THIS IS PERMINENT and cannot be undone.
+  - Data can only be restored by using Restore backup function and selecting .csv file created by site.
+- Delete a single entry by selecting date on front page and using delete entry button.
+- Use a speadsheet program (EXCEL or Google Sheets) to open the backup .csv file and view all stored data.
+  - When opening file for the first time in EXCEL and option is presented, select show data seperated by comma.
+  - You can create various graphs and charts to your liking.
+
 ## Contact details
 
-Contact me via twitter [@darren_colson](https://twitter.com/darren_colson)
+Contact me via email [darrencolson80+support@gmail.com](mailto:darrencolson80+support@gmail.com)
