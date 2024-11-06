@@ -14,11 +14,18 @@ const graphText = document.getElementById("graph-text");
 
 //SITE CLOSING DOWN MESSAGE
 function siteCloseMessage() {
-	alert(
-		"MIGRATING TO NEW ADDRESS\nThis site https://myweight.netlify.app/ \n is closing on 30th November 2024 \n Backup all your data and use Restore Data at new site \n http://newsite.co.uk"
-	);
+	if (
+		window.location.href == "https://myweight.netlify.app/" ||
+		window.location.href == "http://localhost:5500/index.html"
+	) {
+		alert(
+			" MIGRATING TO NEW ADDRESS\n\n This site https://myweight.netlify.app/ \n is closing on 30th November 2024 \n \n Backup all your data and use Restore Data at new site \n https://darren-uk.github.io/weight-converter-app/"
+		);
+	} else {
+		return;
+	}
 }
-// siteCloseMessage();
+siteCloseMessage();
 
 // Submit Button
 function weightTracker() {
