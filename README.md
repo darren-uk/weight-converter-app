@@ -31,6 +31,7 @@
 - 1.7 - Add drop down menu at top to clean up UI.
 - 1.7.1 - add target weight input in drop down menu. Target weight now stored in LocalStorage. Target weight is included in .csv download.
 - 1.8.0 - Added backup and restore function. Added delete all data function. Added set target weight with stones and pounds.
+- 1.8.1 - removed dependency of ChartJS, added own chart script.
 
 ## Dependencies / Libraries
 

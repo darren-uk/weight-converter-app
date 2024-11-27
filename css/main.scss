@@ -7,6 +7,8 @@
 	--app-background: rgb(48, 73, 73);
 	--menu-background: rgb(68, 102, 102);
 	--menu-background-offset: rgb(63, 94, 94);
+	--weight-line-color: #348dc6;
+	--target-line-color: #ff6384;
 }
 
 *,
@@ -306,6 +308,12 @@ nav {
 }
 // FORM / INPUT LAYOUT
 
+label[for="date-input"] {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
 .date-layout {
 	font-size: 0.5em;
 	color: var(--text-white);
@@ -375,4 +383,30 @@ ul#results {
 	font-size: 1.2em;
 	font-weight: 700;
 	color: var(--text-bright);
+}
+
+//Graph
+
+#graph-display {
+	aspect-ratio: 21/9;
+}
+.legend li {
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	flex-wrap: wrap;
+}
+.blue-dash {
+	display: inline-block;
+	width: 2em;
+	height: 3px;
+	border-bottom: 3px solid var(--weight-line-color);
+	margin: 0 1em;
+}
+.red-dash {
+	display: inline-block;
+	width: 2em;
+	height: 3px;
+	border-bottom: 3px solid var(--target-line-color);
+	margin: 0 1em;
 }

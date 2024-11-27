@@ -287,6 +287,7 @@ function confirmDelete() {
 }
 
 //Display graph from localhost data
+
 function displayGraph() {
 	if (localStorage.getItem("target") === null) {
 		let graphDiv = document.getElementById("graph-display");
@@ -298,20 +299,28 @@ function displayGraph() {
 	} else {
 		let graphDiv = document.getElementById("graph-display");
 		let graphCanvas = document.getElementById("weightChart");
-		graphText.innerHTML = "<h2>Last 5 entries</h2>";
+		let targetValue = localStorage.getItem("target");
+		graphText.innerHTML = `
+			<h2>Last 5 entries</h2>
+			<ul class="legend"><li><span class="blue-dash"></span>Weight.</li><li><span class="red-dash"></span>Target weight = ${Math.floor(
+				targetValue / 14
+			)} stone ${targetValue % 14} pounds &nbsp; <span>(${Math.floor(
+			targetValue
+		)} pounds)</span></li></ul>
+			`;
 		//clear canvas by deleting canvas and re adding
 		if (graphCanvas) {
 			graphCanvas.remove();
 		}
+
 		let newCanvas = document.createElement("canvas");
 		newCanvas.id = "weightChart";
 		graphDiv.appendChild(newCanvas);
+
 		graphCanvas = document.getElementById("weightChart").getContext("2d");
 
 		//////
 		let myDates = [];
-		let myWeights = [];
-
 		for (let i = 0; i < localStorage.length; i++) {
 			let key = localStorage.key(i);
 			if (key != "target") {
@@ -320,95 +329,119 @@ function displayGraph() {
 		}
 
 		myDates.sort();
+		let myWeights = [];
+
 		for (let i = 0; i < myDates.length; i++) {
 			let localItem = localStorage.getItem(myDates[i]);
 			myWeights.push(localItem);
 		}
-
-		let myDatesLastFive = myDates.slice(-5);
+		// let myDatesLastFive = myDates.slice(-5);
 		let myWeightsLastFive = myWeights.slice(-5);
 
-		let targetValue = localStorage.getItem("target");
+		//// DRAW LINE CHART
 
-		let myWeightsMax = Math.max(...myWeightsLastFive) + 4; // +4 adds a gap at top of graph
-		let myWeightsMin;
-		if (Math.min(...myWeightsLastFive) < targetValue) {
-			myWeightsMin = Math.min(...myWeightsLastFive) - 2; // -2 adds gap at bottom of graph
+		const canvas = document.getElementById("weightChart");
+		const ctx = canvas.getContext("2d");
+
+		// Sample data
+
+		const data = myWeightsLastFive;
+		console.log(data);
+		let target = [
+			targetValue,
+			targetValue,
+			targetValue,
+			targetValue,
+			targetValue,
+		];
+
+		// Graph dimensions
+		const width = document.getElementById("graph-display").offsetWidth;
+		const height = document.getElementById("graph-display").offsetHeight;
+		canvas.width = width;
+		canvas.height = height;
+		canvas.style.background = "#304949";
+		const padding = 10;
+		const paddingLeft = 50;
+		const yLabelCount = data.length;
+
+		// Calculate scaling factors
+		const xScale = (width - (padding + paddingLeft)) / (data.length - 1);
+		const yMax = Math.max(...data) + 5;
+
+		let yMin;
+		if (Math.min(...data) < targetValue) {
+			yMin = Math.min(...data) - 2;
 		} else {
-			myWeightsMin = targetValue - 2; // -2 adds gap at bottom of graph
+			yMin = targetValue - 2;
 		}
 
-		let targetWeight = [
-			targetValue,
-			targetValue,
-			targetValue,
-			targetValue,
-			targetValue,
-		]; // same number as sliced (lastFive)
+		const yRange = yMax - yMin;
+		const yScale = (height - 2 * padding) / yRange;
 
-		// graphCanvas.clearRect(0, 0, canvas.width, canvas.height);
-		// https://stackoverflow.com/questions/40056555/destroy-chart-js-bar-graph-to-redraw-other-graph-in-same-canvas
-		new Chart(graphCanvas, {
-			type: "line",
-			data: {
-				labels: myDatesLastFive, //Your labels for Y axis go in here - must be array []
-				datasets: [
-					{
-						label: "Weight lbs",
-						data: myWeightsLastFive, // your data for X axis go in here - must be array []
-						borderWidth: 1,
-					},
-					{
-						// label: `Target weight (${Math.ceil(targetValue / 14)} stone)`,
-						label: `Target weight = ${Math.floor(targetValue / 14)} stone ${
-							targetValue % 14
-						} pounds (${Math.floor(targetValue)} pounds)`,
-						data: targetWeight,
-						borderWidth: 2,
-						radius: 0,
-					},
-				],
-			},
-			options: {
-				responsive: true,
-				radius: 1, // radius of dots on graph in pixles
-				scales: {
-					y: {
-						min: myWeightsMin,
-						max: myWeightsMax,
-						ticks: {
-							callback: function (value) {
-								return value + " lbs";
-							},
-							color: "#c0c9d1",
-						},
-						grid: {
-							color: "#415c5c",
-						},
-					},
-					x: {
-						ticks: {
-							color: "#c0c9d1",
-						},
-						grid: {
-							color: "transparent",
-						},
-					},
-				},
+		// Draw axes
+		ctx.beginPath();
+		ctx.moveTo(paddingLeft, padding);
+		ctx.lineTo(paddingLeft, height - padding);
+		ctx.strokeStyle = "#2b4141";
+		ctx.stroke();
 
-				plugins: {
-					title: {
-						display: false,
-					},
-					legend: {
-						labels: {
-							usePointStyle: true,
-							pointStyle: "line",
-							color: "#c0c9d1",
-						},
-					},
-				},
-			},
+		//Draw grid lines
+		for (let i = 0; i <= yLabelCount; i++) {
+			ctx.beginPath();
+			let yValue = yMin + (yRange / yLabelCount) * i;
+			const y = height - padding - (yValue - yMin) * yScale;
+			ctx.moveTo(paddingLeft, y + 5);
+			ctx.lineTo(width - padding, y + 5);
+			ctx.strokeStyle = "#ffffff2a";
+			ctx.stroke();
+		}
+
+		// Draw lines
+		ctx.beginPath();
+		ctx.moveTo(paddingLeft, height - padding - (data[0] - yMin) * yScale);
+		data.forEach((point, index) => {
+			const x = paddingLeft + index * xScale;
+			const y = height - padding - (point - yMin) * yScale;
+			ctx.lineTo(x, y);
 		});
+		ctx.lineWidth = 2;
+		// blue
+		ctx.strokeStyle = "#348dc6";
+		ctx.stroke();
+
+		//Draw target line
+		ctx.beginPath();
+		ctx.moveTo(paddingLeft, height - padding - (target[0] - yMin) * yScale);
+		target.forEach((point, index) => {
+			const x = paddingLeft + index * xScale;
+			const y = height - padding - (point - yMin) * yScale;
+			ctx.lineTo(x, y);
+		});
+		ctx.lineWidth = 2;
+		// red
+		ctx.strokeStyle = "#ff6384";
+		ctx.stroke();
+
+		//Draw points
+		const dot_size = 3;
+		data.forEach((point, index) => {
+			ctx.beginPath();
+			const x = paddingLeft + index * xScale;
+			const y = height - padding - (point - yMin) * yScale;
+			ctx.arc(x, y, dot_size, 0, 2 * Math.PI, true);
+			// blue
+			ctx.fillStyle = "#348dc6";
+			ctx.fill();
+		});
+
+		// Draw y-axis labels
+		for (let i = 0; i <= yLabelCount; i++) {
+			let yValue = yMin + (yRange / yLabelCount) * i;
+			const y = height - padding - (yValue - yMin) * yScale;
+			ctx.fillStyle = "#c9d5db";
+			ctx.font = "12px Helvetica";
+			ctx.fillText(yValue.toFixed(0) + " lbs", paddingLeft - 50, y + 5);
+		}
 	}
 }
