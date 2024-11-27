@@ -31,11 +31,11 @@
 - 1.7 - Add drop down menu at top to clean up UI.
 - 1.7.1 - add target weight input in drop down menu. Target weight now stored in LocalStorage. Target weight is included in .csv download.
 - 1.8.0 - Added backup and restore function. Added delete all data function. Added set target weight with stones and pounds.
-- 1.8.1 - removed dependency of ChartJS, added own chart script.
+- 1.8.1 - removed dependency of ChartJS, added own chart script. Added coloured arrows aside records.
 
 ## Dependencies / Libraries
 
-- ChartJS URL https://www.chartjs.org/
+- ~~ChartJS https://www.chartjs.org/~~ - Depreciated at version 1.8.1
 - Lightweight client-side loader that feature-detects and load polyfills only when necessary https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js
 - Markdown file converter https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js
 

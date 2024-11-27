@@ -134,6 +134,10 @@ input[type="button"],
 	}
 }
 
+input#csvFileInput {
+	max-width: 50%;
+}
+
 .delete-button {
 	background-color: rgb(179, 98, 98);
 	&:hover {
