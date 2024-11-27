@@ -7,6 +7,8 @@
 	--app-background: rgb(48, 73, 73);
 	--menu-background: rgb(68, 102, 102);
 	--menu-background-offset: rgb(63, 94, 94);
+	--weight-line-color: #348dc6;
+	--target-line-color: #ff6384;
 }
 
 *,
@@ -130,6 +132,10 @@ input[type="button"],
 		color: rgb(48, 73, 73);
 		cursor: pointer;
 	}
+}
+
+input#csvFileInput {
+	max-width: 50%;
 }
 
 .delete-button {
@@ -306,6 +312,12 @@ nav {
 }
 // FORM / INPUT LAYOUT
 
+label[for="date-input"] {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
 .date-layout {
 	font-size: 0.5em;
 	color: var(--text-white);
@@ -349,20 +361,24 @@ ul#results {
 	li {
 		display: flex;
 		justify-content: space-around;
+		align-items: baseline;
 		list-style: none;
 		width: 100%;
 		padding: 1em;
-		span.date {
-			text-align: left;
+
+		> span {
+			display: flex;
+			align-items: center;
+			justify-content: space-evenly;
 			width: 15ch;
+		}
+
+		span.weight-pounds {
+			justify-content: space-between;
+			margin-left: 10px;
 		}
 		span.weight-stones {
-			text-align: left;
-			width: 15ch;
-		}
-		span.weight-pounds {
-			text-align: left;
-			width: 15ch;
+			align-items: baseline;
 		}
 	}
 	li:nth-of-type(odd) {
@@ -370,9 +386,52 @@ ul#results {
 	}
 }
 
+.arrow {
+	font-size: 1.8em;
+	img {
+		width: 20px;
+		height: 20px;
+	}
+}
+.green {
+	color: #36eb36;
+}
+.red {
+	color: #fb4a4a;
+}
+.neutral {
+	color: inherit;
+}
+
 // UTILITY STYLES
 .weight-bold {
 	font-size: 1.2em;
 	font-weight: 700;
 	color: var(--text-bright);
+}
+
+//Graph
+
+#graph-display {
+	aspect-ratio: 21/9;
+}
+.legend li {
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	flex-wrap: wrap;
+}
+.blue-dash {
+	display: inline-block;
+	width: 2em;
+	height: 3px;
+	border-bottom: 3px solid var(--weight-line-color);
+	margin: 0 1em;
+}
+.red-dash {
+	display: inline-block;
+	width: 2em;
+	height: 3px;
+	border-bottom: 3px solid var(--target-line-color);
+	margin: 0 1em;
 }
