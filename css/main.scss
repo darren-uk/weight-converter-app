@@ -357,25 +357,46 @@ ul#results {
 	li {
 		display: flex;
 		justify-content: space-around;
+		align-items: baseline;
 		list-style: none;
 		width: 100%;
 		padding: 1em;
-		span.date {
-			text-align: left;
+
+		> span {
+			display: flex;
+			align-items: center;
+			justify-content: space-evenly;
 			width: 15ch;
+		}
+
+		span.weight-pounds {
+			justify-content: space-between;
+			margin-left: 10px;
 		}
 		span.weight-stones {
-			text-align: left;
-			width: 15ch;
-		}
-		span.weight-pounds {
-			text-align: left;
-			width: 15ch;
+			align-items: baseline;
 		}
 	}
 	li:nth-of-type(odd) {
 		background-color: var(--line-background);
 	}
+}
+
+.arrow {
+	font-size: 1.8em;
+	img {
+		width: 20px;
+		height: 20px;
+	}
+}
+.green {
+	color: #36eb36;
+}
+.red {
+	color: #fb4a4a;
+}
+.neutral {
+	color: inherit;
 }
 
 // UTILITY STYLES

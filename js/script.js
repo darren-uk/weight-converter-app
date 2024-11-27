@@ -11,6 +11,8 @@ const targetStone = document.getElementById("target-stone");
 const targetPounds = document.getElementById("target-pounds");
 const targetDisplay = document.getElementById("target");
 const graphText = document.getElementById("graph-text");
+let arrowSet = 0;
+let arrow;
 
 //SITE CLOSING DOWN MESSAGE
 function siteCloseMessage() {
@@ -96,7 +98,6 @@ function displayResults() {
 	dateList.reverse();
 
 	//Use ordered dates to collect data from local storage
-
 	for (let i = 0; i < dateList.length; i++) {
 		let value = localStorage.getItem(dateList[i]);
 		let stones = Math.floor(value / 14);
@@ -133,19 +134,36 @@ function displayResults() {
 
 		dayString = day + nth(day);
 
+		// draw arrows
+		y = i + 1;
+		if (
+			value == localStorage.getItem(dateList[y]) ||
+			i == dateList.length - 1
+		) {
+			arrow = `<span class="arrow "> -- </span>`;
+			colorClass = "neutral";
+		} else if (value < localStorage.getItem(dateList[y])) {
+			arrow = `<span class="arrow"> <img src="../images/caret-down-solid.svg"> </span>`;
+			colorClass = "green";
+		} else if (value > localStorage.getItem(dateList[y])) {
+			arrow = `<span class="arrow"> <img src="../images/caret-up-solid.svg"> </span>`;
+			colorClass = "red";
+		}
+
 		const node = document.createElement("li");
 
 		let markUp = `
 
 			<span class="date">${year} \xa0\xa0${month} ${dayString}</span>
 			<span class="weight-stones"><span class="weight-bold">${stones}</span> st \xa0\xa0\ <span class="weight-bold">${pounds}</span> lbs</span>
-			<span class="weight-pounds">( ${value} lbs )</span>
+			<span class="weight-pounds"><span class="${colorClass}">(</span> ${value} lbs <span class="${colorClass}">)</span> ${arrow}</span>
 
 		`;
 
 		node.innerHTML = markUp;
 
 		resultsOutput.appendChild(node);
+		arrowSet = value;
 	}
 
 	displayGraph();
@@ -346,7 +364,7 @@ function displayGraph() {
 		// Sample data
 
 		const data = myWeightsLastFive;
-		console.log(data);
+
 		let target = [
 			targetValue,
 			targetValue,
