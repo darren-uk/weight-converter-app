@@ -58,6 +58,7 @@ img {
   border-radius: 1em;
   padding: 1.2em 2.8em;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 h1 {
