@@ -32,6 +32,7 @@
 - 1.7.1 - add target weight input in drop down menu. Target weight now stored in LocalStorage. Target weight is included in .csv download.
 - 1.8.0 - Added backup and restore function. Added delete all data function. Added set target weight with stones and pounds.
 - 1.8.1 - removed dependency of ChartJS, added own chart script. Added coloured arrows aside records.
+- 1.8.2 - removed site migration message & closed netlify site. Added Google Analytics to new site.
 
 ## Dependencies / Libraries
 
@@ -53,6 +54,9 @@
 - DATA IS NOT STORED OR SHARED WITH ANYONE EXCEPT YOURSELF. WE COLLECT NO ADDITIONAL DATA.
 - WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR LOSS OF DATA STORED OR ANYONE ELSE INJECTING MALICIOUS DATA AND DAMAGING HARDWARE OR SOFTWARE.
 - WE (THE OWNER / CREATOR OF THIS WEB SITE) ACCEPT NO RESPONSIBILITY FOR ANY ACTIONS OR CHANGES OF LIBRARIES OR DEPENDENCIES LISTED ABOVE.
+- We use Google Analytics to collect data. We need this data to understand how you use our website so we can improve its design and functionality.
+
+Using this site you are giving your consent, Google Analytics will process and collect your personal data (cookies and IP address) to give us valuable information. Google Analytics will transfer your data to the United States and store it for 6 months.
 
 ## FAQ
 
