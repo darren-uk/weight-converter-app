@@ -430,23 +430,31 @@ ul#results {
 #graph-display {
 	aspect-ratio: 21/9;
 }
+.legend {
+	margin-bottom: 1em;
+}
 .legend li {
 	display: flex;
 	align-items: center;
 	justify-content: start;
 	flex-wrap: wrap;
 }
+@media only screen and (max-width: 380px) {
+	.legend li {
+		font-size: 0.9em;
+	}
+}
 .blue-dash {
 	display: inline-block;
 	width: 2em;
 	height: 3px;
 	border-bottom: 3px solid var(--weight-line-color);
-	margin: 0 1em;
+	margin-right: 1em;
 }
 .red-dash {
 	display: inline-block;
 	width: 2em;
 	height: 3px;
 	border-bottom: 3px solid var(--target-line-color);
-	margin: 0 1em;
+	margin-right: 1em;
 }
