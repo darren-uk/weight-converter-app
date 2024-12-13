@@ -136,6 +136,7 @@ function displayResults() {
 		}
 
 		const node = document.createElement("li");
+		node.classList.add("fade", "fadeOut");
 
 		let markUp = `
 
@@ -152,6 +153,7 @@ function displayResults() {
 	}
 
 	displayGraph();
+	fadeInAnimation();
 }
 // 14lbs = 1 stone
 // 152lbs = 10st 12lbs
@@ -447,4 +449,31 @@ function displayGraph() {
 			ctx.fillText(yValue.toFixed(0) + " lbs", paddingLeft - 50, y + 5);
 		}
 	}
+}
+
+//fade in animation
+
+function fadeInAnimation() {
+	const observerOptions = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 1,
+	};
+
+	function observerCallback(entries, observer) {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				// fade in observed elements that are in view
+				entry.target.classList.replace("fadeOut", "fadeIn");
+			} else {
+				// fade out observed elements that are not in view
+				entry.target.classList.replace("fadeIn", "fadeOut");
+			}
+		});
+	}
+
+	const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+	let fadeElms = document.querySelectorAll(".fade");
+	fadeElms.forEach((el) => observer.observe(el));
 }

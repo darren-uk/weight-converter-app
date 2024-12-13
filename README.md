@@ -33,6 +33,7 @@
 - 1.8.0 - Added backup and restore function. Added delete all data function. Added set target weight with stones and pounds.
 - 1.8.1 - removed dependency of ChartJS, added own chart script. Added coloured arrows aside records.
 - 1.8.2 - removed site migration message & closed netlify site. Added Google Analytics to new site.
+- 1.8.3 - changed layout of input section. changed button colors for accessabillity. added fade animation to results list.
 
 ## Dependencies / Libraries
 

@@ -586,3 +586,16 @@ ul#results li:nth-of-type(odd) {
   border-bottom: 3px solid var(--target-line-color);
   margin-right: 1em;
 }
+
+.fade {
+  -webkit-transition: opacity 0.7s ease-in;
+  transition: opacity 0.7s ease-in;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.fadeIn {
+  opacity: 1;
+}
