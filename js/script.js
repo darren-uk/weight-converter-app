@@ -128,10 +128,10 @@ function displayResults() {
 			arrow = `<span class="arrow "> -- </span>`;
 			colorClass = "neutral";
 		} else if (value < localStorage.getItem(dateList[y])) {
-			arrow = `<span class="arrow"> <img src="./images/caret-down-solid.svg"> </span>`;
+			arrow = `<span class="arrow"> <img src="./images/caret-down-solid.svg" alt="weight loss"> </span>`;
 			colorClass = "green";
 		} else if (value > localStorage.getItem(dateList[y])) {
-			arrow = `<span class="arrow"> <img src="./images/caret-up-solid.svg"> </span>`;
+			arrow = `<span class="arrow"> <img src="./images/caret-up-solid.svg" alt="weight gain"> </span>`;
 			colorClass = "red";
 		}
 
