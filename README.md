@@ -34,6 +34,7 @@
 - 1.8.1 - removed dependency of ChartJS, added own chart script. Added coloured arrows aside records.
 - 1.8.2 - removed site migration message & closed netlify site. Added Google Analytics to new site.
 - 1.8.3 - changed layout of input section. changed button colors for accessabillity. added fade animation to results list. Added highest & lowest weights.
+- 1.8.4 - added meta data and added feature to make PWA for mobile.
 
 ## Dependencies / Libraries
 

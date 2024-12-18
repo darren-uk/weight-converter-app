@@ -1,0 +1,15 @@
+{
+	"short_name": "Weight Tracker",
+	"name": "Weight Tracker",
+	"icons": [
+		{
+			"src": "/favicon.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#7c7a7a"
+}
