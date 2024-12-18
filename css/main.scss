@@ -8,7 +8,7 @@
 	--menu-background: rgb(68, 102, 102);
 	--menu-background-offset: rgb(63, 94, 94);
 	--weight-line-color: #348dc6;
-	--target-line-color: #ff6384;
+	--target-line-color: #36eb36;
 }
 
 *,
@@ -87,9 +87,13 @@ input[type="date"] {
 	border: none;
 	border-radius: 6px;
 	text-align: right;
-	padding: 0 1em;
+	padding: 0.6em 1em;
 	color: var(--paragraph-color);
 	min-height: 2em;
+
+	&::placeholder {
+		text-align: center;
+	}
 }
 
 input[type="file"] {
@@ -115,7 +119,6 @@ input[type="button"],
 #delete-all-button {
 	border: 1px solid rgb(63, 94, 94);
 	border-radius: 6px;
-	min-width: 8em;
 	min-width: 18ch;
 	min-height: 2em;
 	padding: 0.6em 1em;
@@ -134,13 +137,21 @@ input[type="button"],
 		cursor: pointer;
 	}
 }
+@media only screen and (max-width: 500px) {
+	input[type="button"],
+	#delete-all-button {
+		min-width: 10ch;
+		padding: 0.6em 0.5em;
+	}
+}
 
 input#csvFileInput {
 	max-width: 50%;
 }
 
 .delete-button {
-	background-color: rgb(179, 98, 98);
+	background-color: #cb5a5a;
+
 	&:hover {
 		background-color: #fff;
 		color: rgb(48, 73, 73);
@@ -149,7 +160,8 @@ input#csvFileInput {
 }
 
 input#calculate {
-	background-color: rgb(80, 182, 134);
+	background-color: #337b59;
+
 	&:hover {
 		background-color: #fff;
 		color: rgb(48, 73, 73);
@@ -171,7 +183,7 @@ input#calculate {
 	margin-left: 1em;
 }
 .target-button {
-	background-color: rgb(80, 182, 134);
+	background-color: #337b59;
 	&:hover {
 		background-color: #fff;
 		color: rgb(48, 73, 73);
@@ -338,8 +350,20 @@ ul {
 	}
 }
 
+ul#hi-low {
+	li {
+		display: block;
+		.inline-margin {
+			margin: 0 1em;
+		}
+	}
+}
+
 ul#buttons {
 	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
 
 	li {
 		width: 100%;
@@ -347,9 +371,9 @@ ul#buttons {
 		justify-content: end;
 		padding: 0.5em 0;
 		align-items: center;
-	}
-	li:nth-of-type(1) {
-		margin-bottom: 3em;
+		&:nth-child(2) {
+			justify-content: flex-start;
+		}
 	}
 	label {
 		margin-right: 2em;
@@ -416,23 +440,43 @@ ul#results {
 #graph-display {
 	aspect-ratio: 21/9;
 }
+.legend {
+	margin-bottom: 1em;
+}
 .legend li {
 	display: flex;
 	align-items: center;
 	justify-content: start;
 	flex-wrap: wrap;
 }
-.blue-dash {
+@media only screen and (max-width: 380px) {
+	.legend li {
+		font-size: 0.9em;
+	}
+}
+.weight-dash {
 	display: inline-block;
 	width: 2em;
 	height: 3px;
 	border-bottom: 3px solid var(--weight-line-color);
-	margin: 0 1em;
+	margin-right: 1em;
 }
-.red-dash {
+.target-dash {
 	display: inline-block;
 	width: 2em;
 	height: 3px;
 	border-bottom: 3px solid var(--target-line-color);
-	margin: 0 1em;
+	margin-right: 1em;
+}
+
+// fade in animation
+.fade {
+	transition: opacity 0.7s ease-in;
+}
+
+.fadeOut {
+	opacity: 0;
+}
+.fadeIn {
+	opacity: 1;
 }

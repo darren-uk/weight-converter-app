@@ -8,7 +8,7 @@
   --menu-background: rgb(68, 102, 102);
   --menu-background-offset: rgb(63, 94, 94);
   --weight-line-color: #348dc6;
-  --target-line-color: #ff6384;
+  --target-line-color: #36eb36;
 }
 
 *,
@@ -94,9 +94,26 @@ input[type=date] {
   border: none;
   border-radius: 6px;
   text-align: right;
-  padding: 0 1em;
+  padding: 0.6em 1em;
   color: var(--paragraph-color);
   min-height: 2em;
+}
+input[type=number]::-webkit-input-placeholder, input[type=text]::-webkit-input-placeholder, input[type=date]::-webkit-input-placeholder {
+  text-align: center;
+}
+input[type=number]::-moz-placeholder, input[type=text]::-moz-placeholder, input[type=date]::-moz-placeholder {
+  text-align: center;
+}
+input[type=number]:-ms-input-placeholder, input[type=text]:-ms-input-placeholder, input[type=date]:-ms-input-placeholder {
+  text-align: center;
+}
+input[type=number]::-ms-input-placeholder, input[type=text]::-ms-input-placeholder, input[type=date]::-ms-input-placeholder {
+  text-align: center;
+}
+input[type=number]::placeholder,
+input[type=text]::placeholder,
+input[type=date]::placeholder {
+  text-align: center;
 }
 
 input[type=file] {
@@ -123,7 +140,6 @@ input[type=button],
 #delete-all-button {
   border: 1px solid rgb(63, 94, 94);
   border-radius: 6px;
-  min-width: 8em;
   min-width: 18ch;
   min-height: 2em;
   padding: 0.6em 1em;
@@ -147,12 +163,19 @@ input[type=button]:hover,
   cursor: pointer;
 }
 
+@media only screen and (max-width: 500px) {
+  input[type=button],
+  #delete-all-button {
+    min-width: 10ch;
+    padding: 0.6em 0.5em;
+  }
+}
 input#csvFileInput {
   max-width: 50%;
 }
 
 .delete-button {
-  background-color: rgb(179, 98, 98);
+  background-color: #cb5a5a;
 }
 .delete-button:hover {
   background-color: #fff;
@@ -161,7 +184,7 @@ input#csvFileInput {
 }
 
 input#calculate {
-  background-color: rgb(80, 182, 134);
+  background-color: #337b59;
 }
 input#calculate:hover {
   background-color: #fff;
@@ -185,7 +208,7 @@ input#calculate:hover {
 }
 
 .target-button {
-  background-color: rgb(80, 182, 134);
+  background-color: #337b59;
 }
 .target-button:hover {
   background-color: #fff;
@@ -417,8 +440,25 @@ ul label {
   font-size: 1.2em;
 }
 
+ul#hi-low li {
+  display: block;
+}
+ul#hi-low li .inline-margin {
+  margin: 0 1em;
+}
+
 ul#buttons {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
 }
 ul#buttons li {
   width: 100%;
@@ -433,8 +473,10 @@ ul#buttons li {
       -ms-flex-align: center;
           align-items: center;
 }
-ul#buttons li:nth-of-type(1) {
-  margin-bottom: 3em;
+ul#buttons li:nth-child(2) {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 ul#buttons label {
   margin-right: 2em;
@@ -514,6 +556,10 @@ ul#results li:nth-of-type(odd) {
   aspect-ratio: 21/9;
 }
 
+.legend {
+  margin-bottom: 1em;
+}
+
 .legend li {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -528,18 +574,36 @@ ul#results li:nth-of-type(odd) {
       flex-wrap: wrap;
 }
 
-.blue-dash {
+@media only screen and (max-width: 380px) {
+  .legend li {
+    font-size: 0.9em;
+  }
+}
+.weight-dash {
   display: inline-block;
   width: 2em;
   height: 3px;
   border-bottom: 3px solid var(--weight-line-color);
-  margin: 0 1em;
+  margin-right: 1em;
 }
 
-.red-dash {
+.target-dash {
   display: inline-block;
   width: 2em;
   height: 3px;
   border-bottom: 3px solid var(--target-line-color);
-  margin: 0 1em;
+  margin-right: 1em;
+}
+
+.fade {
+  -webkit-transition: opacity 0.7s ease-in;
+  transition: opacity 0.7s ease-in;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.fadeIn {
+  opacity: 1;
 }

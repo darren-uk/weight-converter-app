@@ -10,7 +10,6 @@
     <meta name="keywords"
         content="weight tracking,stones and pounds,weight mangement,health app,fitness tracking,weight loss,body weight monitor,health goals,weight progress,imperial weight units">
     <link rel="icon" type="image/x-icon" href="favicon.png">
-    <link rel="preload" href="css/main.min.css" as="style" />
     <link rel="stylesheet" href="css/main.min.css">
     <title>Weight Tracker</title>
 </head>
@@ -32,7 +31,7 @@
             <nav>
                 <div class="title">
                     <h1>Weight Tracker</h1>
-                    <div class="version">Version 1.8.2 Dec 2024</div>
+                    <div class="version">Track progress, Stay motivated</div>
                 </div>
                 <div class="toggle">
                     <input type="checkbox" aria-label="Hamburger">
@@ -44,6 +43,7 @@
 
                     <ul id="menu-main">
                         <li>
+                            <div class="version">Version 1.8.3 Dec 2024</div>
                             <div>
                                 <p> Work out you target weight from BUPA BMI index</p>
                                 <a href="https://www.bupa.co.uk/health-information/bmi-calculator" target="_blank">
@@ -89,7 +89,8 @@
                                     class="upload-button">
                             </div>
                             <div id="user-message">
-                                Loading data will overide any dates already stored
+                                Loading data will overide any dates already stored. Delete all data first for a fresh
+                                new start.
                             </div>
                         </li>
                         <li>
@@ -143,6 +144,11 @@
             <div class="graph-display" id="graph-display">
                 <canvas id="weightChart" width="100%" height="100%"></canvas>
             </div>
+        </section>
+        <section>
+            <ul class="hi-low" id="hi-low">
+
+            </ul>
         </section>
         <section>
             <h2>Records</h2>
