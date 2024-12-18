@@ -8,7 +8,7 @@
   --menu-background: rgb(68, 102, 102);
   --menu-background-offset: rgb(63, 94, 94);
   --weight-line-color: #348dc6;
-  --target-line-color: #ff6384;
+  --target-line-color: #36eb36;
 }
 
 *,
@@ -167,6 +167,7 @@ input[type=button]:hover,
   input[type=button],
   #delete-all-button {
     min-width: 10ch;
+    padding: 0.6em 0.5em;
   }
 }
 input#csvFileInput {
@@ -439,6 +440,13 @@ ul label {
   font-size: 1.2em;
 }
 
+ul#hi-low li {
+  display: block;
+}
+ul#hi-low li .inline-margin {
+  margin: 0 1em;
+}
+
 ul#buttons {
   width: 100%;
   display: -webkit-box;
@@ -571,7 +579,7 @@ ul#results li:nth-of-type(odd) {
     font-size: 0.9em;
   }
 }
-.blue-dash {
+.weight-dash {
   display: inline-block;
   width: 2em;
   height: 3px;
@@ -579,7 +587,7 @@ ul#results li:nth-of-type(odd) {
   margin-right: 1em;
 }
 
-.red-dash {
+.target-dash {
   display: inline-block;
   width: 2em;
   height: 3px;

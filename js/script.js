@@ -2,6 +2,7 @@
 
 const dateInput = document.getElementById("date-input");
 const weightInput = document.getElementById("weight-input");
+const hiLowList = document.getElementById("hi-low");
 const resultsOutput = document.getElementById("results");
 const graphDiv = document.getElementById("graph-display");
 const targetInputPounds = document.getElementById("target-input-pounds");
@@ -11,6 +12,8 @@ const targetStone = document.getElementById("target-stone");
 const targetPounds = document.getElementById("target-pounds");
 const targetDisplay = document.getElementById("target");
 const graphText = document.getElementById("graph-text");
+const targetLineColor = "#36eb36";
+const weightLineColor = "#348dc6";
 let arrowSet = 0;
 let arrow;
 
@@ -82,6 +85,11 @@ function displayResults() {
 	dateList.sort();
 	dateList.reverse();
 
+	let highestValue = 0;
+	let lowestValue = 90000;
+	let highestRecord = `Your highest record will be shown here`;
+	let lowestRecord = `your lowest record will be shown here`;
+
 	//Use ordered dates to collect data from local storage
 	for (let i = 0; i < dateList.length; i++) {
 		let value = localStorage.getItem(dateList[i]);
@@ -119,6 +127,16 @@ function displayResults() {
 
 		dayString = day + nth(day);
 
+		//collect if highest or lowest record
+		if (value > highestValue) {
+			highestValue = value;
+			highestRecord = `<span class="weight-bold">${stones}</span> st <span class="weight-bold">${pounds}</span> lbs <span class=" inline-margin"><span class="red">(</span>${value} lbs<span class="red">)</span></span> | &nbsp; ${year} ${month} ${dayString}`;
+		}
+		if (value < lowestValue) {
+			lowestValue = value;
+			lowestRecord = `<span class="weight-bold">${stones}</span> st <span class="weight-bold">${pounds}</span> lbs <span class=" inline-margin"><span class="green">(</span>${value} lbs<span class="green">)</span></span> | &nbsp; ${year} ${month} ${dayString}`;
+		}
+
 		// draw arrows
 		y = i + 1;
 		if (
@@ -151,7 +169,9 @@ function displayResults() {
 		resultsOutput.appendChild(node);
 		arrowSet = value;
 	}
-
+	// display highest and lowest entries
+	hiLowList.innerHTML = `<li>Lowest recorded weight  &nbsp; -  &nbsp; ${lowestRecord}</li><li>Highest recorded weight  &nbsp; -  &nbsp; ${highestRecord}</li>`;
+	// hiLowList.innerHTML = `<li>Lowest  &nbsp; -  &nbsp; ${lowestRecord}</li><li>Highest &nbsp; -  &nbsp; ${highestRecord}</li>`;
 	displayGraph();
 	fadeInAnimation();
 }
@@ -294,10 +314,23 @@ function confirmDelete() {
 //Display graph from localhost data
 
 function displayGraph() {
-	if (localStorage.getItem("target") === null) {
+	// if (localStorage.getItem("target") === null) {
+
+	let noGraphText = `<h2>TRACK YOUR WEIGHT, ACHIEVE YOUR GOALS</h2><p>Track your weight effortlessly with Weight Tracker. View your weight in stones and pounds, making it easy to monitor your progress. Stay on top of your health goals with detailed tracking and insightful analytics. Start your journey towards a healthier you today</P><br><h3>A graph will display after your first two entries are logged</h3><br><h3>Set your target weight in the drop down menu above</h3>`;
+	if (
+		window.localStorage.length < 2 &&
+		localStorage.getItem("target") === null
+	) {
 		let graphDiv = document.getElementById("graph-display");
 		let graphCanvas = document.getElementById("weightChart");
-		graphText.innerHTML = `<h2>TRACK YOUR WEIGHT, ACHIEVE YOUR GOALS</h2><p>Track your weight effortlessly with Weight Tracker. Our app allows you to input your weight in stones and pounds, making it easy to monitor your progress. Stay on top of your health goals with detailed tracking and insightful analytics. Start your journey towards a healthier you today</P><br><h3>A graph will display after your first entry is logged</h3>`;
+		graphText.innerHTML = noGraphText;
+		if (graphCanvas) {
+			graphCanvas.remove();
+		}
+	} else if (window.localStorage.length < 3 && localStorage.getItem("target")) {
+		let graphDiv = document.getElementById("graph-display");
+		let graphCanvas = document.getElementById("weightChart");
+		graphText.innerHTML = noGraphText;
 		if (graphCanvas) {
 			graphCanvas.remove();
 		}
@@ -307,11 +340,13 @@ function displayGraph() {
 		let targetValue = localStorage.getItem("target");
 		graphText.innerHTML = `
 			<h2>Last 5 entries</h2>
-			<ul class="legend"><li><span class="blue-dash"></span>Weight.</li><li><span class="red-dash"></span>Target weight = ${Math.floor(
+			<ul class="legend"><li><span class="weight-dash"></span>Weight.</li><li><span class="target-dash"></span>Target weight = &nbsp;<span class="weight-bold">${Math.floor(
 				targetValue / 14
-			)} stone ${targetValue % 14} pounds &nbsp; <span>(${Math.floor(
+			)}</span> &nbsp;stone &nbsp; <span class="weight-bold">${
+			targetValue % 14
+		}</span> &nbsp; pounds &nbsp; <span class="green">(</span>${Math.floor(
 			targetValue
-		)} pounds)</span></li></ul>
+		)} pounds<span class="green">)</span></li></ul>
 			`;
 		//clear canvas by deleting canvas and re adding
 		if (graphCanvas) {
@@ -412,7 +447,7 @@ function displayGraph() {
 		});
 		ctx.lineWidth = 2;
 		// blue
-		ctx.strokeStyle = "#348dc6";
+		ctx.strokeStyle = weightLineColor;
 		ctx.stroke();
 
 		//Draw target line
@@ -425,7 +460,8 @@ function displayGraph() {
 		});
 		ctx.lineWidth = 2;
 		// red
-		ctx.strokeStyle = "#ff6384";
+		// ctx.strokeStyle = "#ff6384";
+		ctx.strokeStyle = targetLineColor;
 		ctx.stroke();
 
 		//Draw points
