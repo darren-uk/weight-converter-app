@@ -1,7 +1,7 @@
 {
 	"short_name": "Weight Tracker",
 	"name": "Weight Tracker",
-	"version": "1.8.5.5",
+	"version": "1.8.5.6",
 	"icons": [
 		{
 			"src": "/favicon.png",
@@ -9,7 +9,7 @@
 			"type": "image/png"
 		}
 	],
-	"start_url": "https://darren-uk.github.io/weight-converter-app/.",
+	"start_url": "https://darren-uk.github.io/weight-converter-app/",
 	"display": "standalone",
 	"theme_color": "#000000",
 	"background_color": "#dbe5e6"
