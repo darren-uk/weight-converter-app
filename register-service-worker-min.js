@@ -1,1 +1,1 @@
-"serviceWorker"in navigator&&window.addEventListener("load",(()=>{navigator.serviceWorker.register("https://darren-uk.github.io/weight-converter-app/service-worker.js").then((e=>{})).catch((e=>{}))}));
+"serviceWorker"in navigator&&window.addEventListener("load",(()=>{navigator.serviceWorker.register("service-worker.js").then((e=>{})).catch((e=>{}))}));
