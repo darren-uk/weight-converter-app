@@ -1,4 +1,6 @@
+
 const CACHE_NAME = "my-pwa-cache-v1.8.5-17";
+
 const urlsToCache = [
 	"./",
 	"./index.html",
@@ -58,10 +60,10 @@ self.addEventListener("fetch", (event) => {
 			.match(event.request)
 			.then((response) => {
 				if (response) {
-					console.log("Found ", event.request.url, " in cache");
+					// console.log("Found ", event.request.url, " in cache");
 					return response;
 				}
-				console.log("Network request for ", event.request.url);
+				// console.log("Network request for ", event.request.url);
 				return fetch(event.request);
 			})
 			.catch((error) => {

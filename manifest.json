@@ -1,7 +1,7 @@
 {
 	"short_name": "WeightTracker",
 	"name": "Weight Tracker",
-	"version": "1.8.5.13",
+	"version": "1.8.5.16",
 	"scope": "./",
 	"icons": [
 		{
