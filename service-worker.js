@@ -1,20 +1,32 @@
-const CACHE_NAME = "my-pwa-cache-v1.8.5-12";
+const CACHE_NAME = "my-pwa-cache-v1.8.5-13";
 const urlsToCache = [
 	"./",
 	"./index.html",
-	// "./about.html",
-	// "./manifest.json",
-	// "./README.md",
-	// "./Licence.md",
-	// "./css/main.min.css",
-	// "./js/script.js",
-	// "./images/caret-down-solid.svg",
-	// "./images/caret-up-solid.svg",
-	// "./images/triangle-exclamation-solid.svg",
-	// "./favicon.png",
+	"./about.html",
+	"./manifest.json",
+	"./README.md",
+	"./Licence.md",
+	"./css/main.min.css",
+	"./js/script.js",
+	"./images/caret-down-solid.svg",
+	"./images/caret-up-solid.svg",
+	"./images/triangle-exclamation-solid.svg",
+	"./favicon.png",
 	// "https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js",
 	// "https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
 ];
+
+// clear old service workers
+navigator.serviceWorker.getRegistrations().then((registrations) => {
+	registrations.forEach((registration) => {
+		registration.unregister();
+	});
+});
+caches.keys().then((names) => {
+	names.forEach((name) => {
+		caches.delete(name);
+	});
+});
 
 self.addEventListener("install", (event) => {
 	console.log("Service Worker installing.");
