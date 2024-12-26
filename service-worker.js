@@ -1,11 +1,11 @@
-const CACHE_NAME = "my-pwa-cache-v1.8.5-16";
+const CACHE_NAME = "my-pwa-cache-v1.8.5-17";
 const urlsToCache = [
 	"./",
 	"./index.html",
 	"./about.html",
 	"./manifest.json",
-	// "./README.md",
-	// "./Licence.md",
+	"./README.md",
+	"./Licence.md",
 	// "./css/main.min.css",
 	// "./js/script.js",
 	// "./images/caret-down-solid.svg",
