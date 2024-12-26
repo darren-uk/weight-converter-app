@@ -1,1 +1,1 @@
-"serviceWorker"in navigator&&window.addEventListener("load",(()=>{navigator.serviceWorker.register("./service-worker.js").then((e=>{})).catch((e=>{}))}));
+"serviceWorker"in navigator&&window.addEventListener("load",(()=>{navigator.serviceWorker.register("./service-worker.js",{scope:"./"}).then((e=>{})).catch((e=>{}))}));
