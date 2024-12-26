@@ -22,11 +22,11 @@ navigator.serviceWorker.getRegistrations().then((registrations) => {
 		registration.unregister();
 	});
 });
-caches.keys().then((names) => {
-	names.forEach((name) => {
-		caches.delete(name);
-	});
-});
+// caches.keys().then((names) => {
+// 	names.forEach((name) => {
+// 		caches.delete(name);
+// 	});
+// });
 
 self.addEventListener("install", (event) => {
 	console.log("Service Worker installing.");
