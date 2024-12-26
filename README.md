@@ -35,6 +35,7 @@
 - 1.8.2 - removed site migration message & closed netlify site. Added Google Analytics to new site.
 - 1.8.3 - changed layout of input section. changed button colors for accessabillity. added fade animation to results list. Added highest & lowest weights.
 - 1.8.4 - added meta data and added feature to make PWA for mobile.
+- 1.8.5 - added cache files. Site sould now work offline. approx cache size 300kb - 400kb.
 
 ## Dependencies / Libraries
 
