@@ -1,0 +1,1 @@
+"serviceWorker"in navigator&&(navigator.serviceWorker.getRegistrations().then((e=>{e.forEach((e=>{e.unregister()}))})).catch((e=>{})),caches.keys().then((e=>{e.forEach((e=>{caches.delete(e)}))})).catch((e=>{})));
