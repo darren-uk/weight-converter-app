@@ -16,12 +16,6 @@ const urlsToCache = [
 	// "https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
 ];
 
-// clear old service workers
-navigator.serviceWorker.getRegistrations().then((registrations) => {
-	registrations.forEach((registration) => {
-		registration.unregister();
-	});
-});
 // caches.keys().then((names) => {
 // 	names.forEach((name) => {
 // 		caches.delete(name);
@@ -46,7 +40,14 @@ self.addEventListener("install", (event) => {
 	);
 });
 
+// clear old service workers
+navigator.serviceWorker.getRegistrations().then((registrations) => {
+	registrations.forEach((registration) => {
+		registration.unregister();
+	});
+});
 // Activate event - Clean old caches
+
 self.addEventListener("activate", (event) => {
 	const cacheWhitelist = [CACHE_NAME];
 	event.waitUntil(
