@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-pwa-cache-v1.8.5-13";
+const CACHE_NAME = "my-pwa-cache-v1.8.5-14";
 const urlsToCache = [
 	"./",
 	"./index.html",
@@ -15,12 +15,6 @@ const urlsToCache = [
 	// "https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js",
 	// "https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
 ];
-
-// caches.keys().then((names) => {
-// 	names.forEach((name) => {
-// 		caches.delete(name);
-// 	});
-// });
 
 self.addEventListener("install", (event) => {
 	console.log("Service Worker installing.");
@@ -40,12 +34,6 @@ self.addEventListener("install", (event) => {
 	);
 });
 
-// clear old service workers
-navigator.serviceWorker.getRegistrations().then(registrations => {
-	registrations.forEach(registration => {
-		registration.unregister();
-	});
-});
 // Activate event - Clean old caches
 
 self.addEventListener("activate", (event) => {
