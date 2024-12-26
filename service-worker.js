@@ -5,7 +5,7 @@ const urlsToCache = [
 	"./about.html",
 	"./manifest.json",
 	"./README.md",
-	"./Licence.md",
+	"./licence.md",
 	// "./css/main.min.css",
 	// "./js/script.js",
 	// "./images/caret-down-solid.svg",
