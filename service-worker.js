@@ -41,8 +41,8 @@ self.addEventListener("install", (event) => {
 });
 
 // clear old service workers
-navigator.serviceWorker.getRegistrations().then((registrations) => {
-	registrations.forEach((registration) => {
+navigator.serviceWorker.getRegistrations().then(registrations => {
+	registrations.forEach(registration => {
 		registration.unregister();
 	});
 });
