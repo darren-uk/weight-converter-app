@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-pwa-cache-v1.8.5-11";
+const CACHE_NAME = "my-pwa-cache-v1.8.5-10";
 const urlsToCache = [
 	"./",
 	"./index.html",
@@ -16,21 +16,13 @@ const urlsToCache = [
 	"https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
 ];
 
+// Install event - Cache files
 self.addEventListener("install", (event) => {
-	console.log("Service Worker installing.");
 	event.waitUntil(
-		caches
-			.open(CACHE_NAME)
-			.then((cache) => {
-				console.log("Opened cache");
-				return cache.addAll(urlsToCache);
-			})
-			.then(() => {
-				console.log("All files cached");
-			})
-			.catch((error) => {
-				console.error("Failed to cache files", error);
-			})
+		caches.open(CACHE_NAME).then((cache) => {
+			console.log("opened cache");
+			return cache.addAll(urlsToCache);
+		})
 	);
 });
 
@@ -50,22 +42,11 @@ self.addEventListener("activate", (event) => {
 	);
 });
 
+// Fetch event - Serve cached content when offline
 self.addEventListener("fetch", (event) => {
-	console.log("Fetch event for ", event.request.url);
 	event.respondWith(
-		caches
-			.match(event.request)
-			.then((response) => {
-				if (response) {
-					console.log("Found ", event.request.url, " in cache");
-					return response;
-				}
-				console.log("Network request for ", event.request.url);
-				return fetch(event.request);
-			})
-			.catch((error) => {
-				console.error("Fetch failed; returning offline page instead.", error);
-				return caches.match("./index.html");
-			})
+		caches.match(event.request).then((response) => {
+			return response || fetch(event.request);
+		})
 	);
 });
