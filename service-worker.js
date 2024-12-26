@@ -1,4 +1,6 @@
-const CACHE_NAME = "my-pwa-cache-v1.8.5-16";
+
+const CACHE_NAME = "my-pwa-cache-v1.8.5-17";
+
 const urlsToCache = [
 	"./",
 	"./index.html",
@@ -12,8 +14,8 @@ const urlsToCache = [
 	"./images/caret-up-solid.svg",
 	"./images/triangle-exclamation-solid.svg",
 	"./favicon.png",
-	// "https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js",
-	// "https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
+	"https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js",
+	"https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
 ];
 
 self.addEventListener("install", (event) => {
