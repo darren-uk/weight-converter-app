@@ -6,14 +6,14 @@ const urlsToCache = [
 	"./manifest.json",
 	"./README.md",
 	"./licence.md",
-	// "./css/main.min.css",
-	// "./js/script.js",
-	// "./images/caret-down-solid.svg",
-	// "./images/caret-up-solid.svg",
-	// "./images/triangle-exclamation-solid.svg",
-	// "./favicon.png",
-	// "https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js",
-	// "https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
+	"./css/main.min.css",
+	"./js/script.js",
+	"./images/caret-down-solid.svg",
+	"./images/caret-up-solid.svg",
+	"./images/triangle-exclamation-solid.svg",
+	"./favicon.png",
+	"https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js",
+	"https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js",
 ];
 
 self.addEventListener("install", (event) => {
