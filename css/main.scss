@@ -437,6 +437,15 @@ ul#results {
 
 //Graph
 
+#graph-section {
+	min-height: 550px;
+}
+@media only screen and (max-width: 400px) {
+	#graph-section {
+		min-height: 260px;
+	}
+}
+
 #graph-display {
 	aspect-ratio: 21/9;
 }
