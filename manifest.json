@@ -1,16 +1,16 @@
 {
-	"short_name": "Weight Tracker",
+	"short_name": "WeightTracker",
 	"name": "Weight Tracker",
-	"version": "1.8.5.8",
+	"version": "1.8.5.9",
 	"scope": "./",
 	"icons": [
 		{
-			"src": "/favicon.png",
+			"src": "./favicon.png",
 			"sizes": "512x512",
 			"type": "image/png"
 		}
 	],
-	"start_url": "./",
+	"start_url": "./index.html",
 	"display": "standalone",
 	"theme_color": "#000000",
 	"background_color": "#dbe5e6"
