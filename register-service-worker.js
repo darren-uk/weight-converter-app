@@ -1,7 +1,9 @@
 if ("serviceWorker" in navigator) {
 	window.addEventListener("load", () => {
 		navigator.serviceWorker
-			.register("service-worker.js")
+			.register(
+				"https://darren-uk.github.io/weight-converter-app/service-worker.js"
+			)
 			.then((registration) => {
 				console.log(
 					"Service worker registered with scope:",
