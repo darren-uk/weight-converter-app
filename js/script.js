@@ -1,3 +1,4 @@
+"use strict";
 // Get elements
 
 const dateInput = document.getElementById("date-input");
@@ -16,7 +17,7 @@ const targetLineColor = "#36eb36";
 const weightLineColor = "#348dc6";
 let arrowSet = 0;
 let arrow;
-
+let entryNumber = -5;
 // Submit Button
 function weightTracker() {
 	// Get value from weight input
@@ -125,7 +126,7 @@ function displayResults() {
 			}
 		};
 
-		dayString = day + nth(day);
+		let dayString = day + nth(day);
 
 		//collect if highest or lowest record
 		if (value > highestValue) {
@@ -138,7 +139,8 @@ function displayResults() {
 		}
 
 		// draw arrows
-		y = i + 1;
+		let y = i + 1;
+		let colorClass;
 		if (
 			value == localStorage.getItem(dateList[y]) ||
 			i == dateList.length - 1
@@ -171,7 +173,7 @@ function displayResults() {
 	}
 	// display highest and lowest entries
 	hiLowList.innerHTML = `<li>Lowest recorded weight  &nbsp; -  &nbsp; ${lowestRecord}</li><li>Highest recorded weight  &nbsp; -  &nbsp; ${highestRecord}</li>`;
-	// hiLowList.innerHTML = `<li>Lowest  &nbsp; -  &nbsp; ${lowestRecord}</li><li>Highest &nbsp; -  &nbsp; ${highestRecord}</li>`;
+
 	displayGraph();
 	fadeInAnimation();
 }
@@ -194,7 +196,7 @@ function backUpCsv() {
 	let csvContent = "data:text/csv;charset=utf-8,";
 	let rows = [];
 
-	for (i = 0; i < localStorage.length; i++) {
+	for (let i = 0; i < localStorage.length; i++) {
 		let x = [];
 		let key = localStorage.key(i);
 		let item = localStorage.getItem(key);
@@ -338,8 +340,15 @@ function displayGraph() {
 		let graphDiv = document.getElementById("graph-display");
 		let graphCanvas = document.getElementById("weightChart");
 		let targetValue = localStorage.getItem("target");
+
 		graphText.innerHTML = `
-			<h2>Last 5 entries</h2>
+			<h2>Select last <select name="graph-entries" id="graph-entries">
+						<option value="">Number of</option>
+						<option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="30">30</option>
+                    </select> entries</h2>
 			<ul class="legend"><li><span class="weight-dash"></span>Weight.</li><li><span class="target-dash"></span>Target weight = &nbsp;<span class="weight-bold">${Math.floor(
 				targetValue / 14
 			)}</span> &nbsp;stone &nbsp; <span class="weight-bold">${
@@ -375,8 +384,8 @@ function displayGraph() {
 			let localItem = localStorage.getItem(myDates[i]);
 			myWeights.push(localItem);
 		}
-		// let myDatesLastFive = myDates.slice(-5);
-		let myWeightsLastFive = myWeights.slice(-5);
+
+		let myWeightsLastFive = myWeights.slice(entryNumber);
 
 		//// DRAW LINE CHART
 
@@ -454,7 +463,7 @@ function displayGraph() {
 		ctx.beginPath();
 		ctx.moveTo(paddingLeft, height - padding - (target[0] - yMin) * yScale);
 		target.forEach((point, index) => {
-			const x = paddingLeft + index * xScale;
+			const x = width - padding;
 			const y = height - padding - (point - yMin) * yScale;
 			ctx.lineTo(x, y);
 		});
@@ -477,13 +486,24 @@ function displayGraph() {
 		});
 
 		// Draw y-axis labels
-		for (let i = 0; i <= yLabelCount; i++) {
-			let yValue = yMin + (yRange / yLabelCount) * i;
-			const y = height - padding - (yValue - yMin) * yScale;
-			ctx.fillStyle = "#c9d5db";
-			ctx.font = "12px Helvetica";
-			ctx.fillText(yValue.toFixed(0) + " lbs", paddingLeft - 50, y + 5);
+		if (entryNumber == -3 || entryNumber == -5 || entryNumber == -10) {
+			for (let i = 0; i <= yLabelCount; i++) {
+				let yValue = yMin + (yRange / yLabelCount) * i;
+				const y = height - padding - (yValue - yMin) * yScale;
+				ctx.fillStyle = "#c9d5db";
+				ctx.font = "12px Helvetica";
+				ctx.fillText(yValue.toFixed(0) + " lbs", paddingLeft - 50, y + 5);
+			}
 		}
+	}
+
+	let entrySelect = document.getElementById("graph-entries");
+
+	if (entrySelect) {
+		entrySelect.addEventListener("change", () => {
+			entryNumber = 0 - entrySelect.value;
+			displayGraph();
+		});
 	}
 }
 
