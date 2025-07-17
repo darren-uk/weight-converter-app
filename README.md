@@ -36,6 +36,7 @@
 - 1.8.3 - changed layout of input section. changed button colors for accessabillity. added fade animation to results list. Added highest & lowest weights.
 - 1.8.4 - added meta data and added feature to make PWA for mobile.
 - 1.8.5 - added cache files. Site sould now work offline. approx cache size 300kb - 400kb.
+- 1.8.6 - added dropdown to select number of entries for graph.
 
 ## Dependencies / Libraries
 
