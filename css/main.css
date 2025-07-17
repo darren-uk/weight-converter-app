@@ -556,6 +556,17 @@ ul#results li:nth-of-type(odd) {
   min-height: 550px;
 }
 
+#graph-entries {
+  text-align: center;
+  padding: 0 1em 0.5em 0.1em;
+  font-family: "open sans", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  color: var(--text-bright);
+  background: var(--app-background);
+  border: none;
+  border-bottom: 2px solid grey;
+}
+
 @media only screen and (max-width: 400px) {
   #graph-section {
     min-height: 260px;
